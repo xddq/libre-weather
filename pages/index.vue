@@ -1,12 +1,15 @@
 <template>
     <div>
-        <h1 class="mt-3">hello world</h1>
-        <p>lol</p>
+        <div
+            class="items-center justify-center w-full mt-4 location-input flex"
+        >
+            <input type="text" placeholder="enter your city here" />
+            <button class="send-location-request">Get weather!</button>
+        </div>
+        <div class="weather-card"></div>
     </div>
-</template>
 
 <script lang="ts">
+import Vue from 'v
 import Vue from "vue";
-
 export default Vue.extend({});
-</script>

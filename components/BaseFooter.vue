@@ -2,10 +2,10 @@
     <!--
     @author: Pierre Dahmani
     @created: 18.08.2021
-    @file: Default header for every page
+    @file: Default footer for every page
 -->
     <div class="flex justify-center items-center w-full mt-8 mx-4">
-        <h1>Weather App</h1>
+        <footer>created by Pierre Dahmani</footer>
     </div>
 </template>
 
