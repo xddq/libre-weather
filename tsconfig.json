@@ -8,13 +8,24 @@
       "ESNext.AsyncIterable",
       "DOM"
     ],
-    "esModuleInterop": true,
+    // allows .js files
     "allowJs": true,
     "sourceMap": true,
-    "strict": true,
     "noEmit": true,
+    // Does not check if you have defined a type twice but in a
+    // different/inconsistent way. Will only check if your imported type is
+    // correct. -> saves time, does not check for type-system accuracy.
+    "skipLibCheck": true,
+    // enables strict type checking behaviours
+    "strict": true,
+    // fix bugs in esModule interopabilits (commonjs, amd, umd etc.)
+    "esModuleInterop": true,
+    // disallow windows imports like ./ImportFileA.ts when the file is named
+    // ./importFileA. Stays consistent with linux and macos.
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
+    // when we use @/dir/file and ~/dir/file in nuxt it will check the root path :]
     "paths": {
       "~/*": [
         "./*"
@@ -23,11 +34,13 @@
         "./*"
       ]
     },
+    // type definition from nuxt and node
     "types": [
       "@nuxt/types",
       "@types/node"
     ]
   },
+  // never lint node_modules, .nuxt and dist folder
   "exclude": [
     "node_modules",
     ".nuxt",
