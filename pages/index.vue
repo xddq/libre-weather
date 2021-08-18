@@ -46,6 +46,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import { Component, Vue } from "nuxt-property-decorator";
+
+@Component
+export default class extends Vue {
+    hello() {
+        let x = 10;
+        return "hi";
+    }
+}
 </script>
+
+<style scoped></style>
