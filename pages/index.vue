@@ -1,7 +1,6 @@
 <template>
     <div>
-        <Tutorial />
-        <h1>hello world</h1>
+        <h1 class="mt-3">hello world</h1>
         <p>lol</p>
     </div>
 </template>
