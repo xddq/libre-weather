@@ -1,14 +1,7 @@
 <template>
     <div>
         <div
-            class="
-                flex flex-col
-                items-center
-                justify-center
-                w-full
-                mt-4
-                location-input
-            "
+            class="flex flex-col items-center justify-center w-full mt-4 location-input"
         >
             <input type="text" placeholder="enter your city here" />
             <button class="send-location-request">Get weather!</button>
