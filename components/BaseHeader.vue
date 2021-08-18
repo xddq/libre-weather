@@ -4,7 +4,7 @@
     @created: 18.08.2021
     @file: Default header for every page
 -->
-    <div class="flex justify-center items-center w-full mt-8 mx-4">
+    <div class="flex justify-center items-center w-full mt-8">
         <h1>Weather App</h1>
     </div>
 </template>
@@ -12,10 +12,10 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 
-@Component
-export default class extends Vue {}
+@Component({
+    name: "BaseHeader",
+})
+export default class BaseHeader extends Vue {}
 </script>
 
 <style scoped></style>
-
-

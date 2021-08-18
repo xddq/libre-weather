@@ -2,7 +2,7 @@
     <div>
         <div
             class="
-                flex
+                flex flex-col
                 items-center
                 justify-center
                 w-full
@@ -15,7 +15,7 @@
                 class="
                     text-center
                     border border-solid
-                    w-80
+                    w-8/12
                     border-grey-300
                     rounded-xl
                 "
@@ -30,17 +30,30 @@
                     bg-gray-100
                     rounded-xl
                     w-40
+                    mt-2
                 "
             >
                 Get weather!
             </button>
         </div>
 
-        class="border border-red-300 w-96"
-        <div class="results">
-            Results:
-
-            <pre>test.</pre>
+        <div
+            class="
+                mt-4
+                flex
+                justify-center
+                items-center
+                border border-green-50
+                bg-green-50
+                w-full
+            "
+        >
+            <div class="results flex flex-col items-center justify-center">
+                <div class="caption">Results</div>
+                <div class="result">
+                    <pre>test.</pre>
+                </div>
+            </div>
         </div>
     </div>
 </template>

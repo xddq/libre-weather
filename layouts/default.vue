@@ -8,9 +8,18 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
 import BaseHeader from "@/components/BaseHeader.vue";
-import BaseFooter from "@/components/BaseHeader.vue";
-import Vue from "vue";
+import BaseFooter from "@/components/BaseFooter.vue";
 
-export default Vue.extend({ components: { BaseHeader, BaseFooter } });
+@Component({
+    name: "DefaultLayout",
+    components: {
+        BaseHeader,
+        BaseFooter,
+    },
+})
+export default class DefaultLayout extends Vue {}
 </script>
+
+<style scoped></style>
