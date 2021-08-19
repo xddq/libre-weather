@@ -64,8 +64,8 @@ import { Component, Vue } from "nuxt-property-decorator";
 @Component
 export default class extends Vue {
     hello() {
-        const x = 10;
-        return "hi";
+        const x = "world";
+        return `hello ${x}`;
     }
 }
 </script>
