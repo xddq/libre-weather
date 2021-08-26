@@ -72,7 +72,8 @@ export default class extends Vue {
 
     async fetchApi() {
         try {
-            const result = await this.$axios.$get("/weather-api/");
+            // const result = await this.$axios.$get("/weather-api/q=Aachen");
+            const result = await this.$axios.$get("/weather-api/?q=Aachen");
             console.log(result);
         } catch (e) {
             console.log("got an error calling weather api.");

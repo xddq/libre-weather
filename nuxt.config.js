@@ -50,7 +50,13 @@ export default {
     },
 
     proxy: {
-        "/weather-api/": `https://api.openweathermap.org/data/2.5/weather?q=Aachen&appid=${process.env.API_KEY}&q=Mexico`,
+        // "/weather-api/": `https://api.openweathermap.org/data/3.5/weather?appid=${process.env.API_KEY}&`,
+        "/weather-api/": {
+            target: `https://pierrefhapp.dev?appid=${process.env.API_KEY}`,
+            pathRewrite: { "^/weather-api/": "" },
+        },
+
+        // /?w=hello/weather-apiq/q=Aachen
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
