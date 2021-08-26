@@ -52,7 +52,7 @@ export default {
     proxy: {
         // "/weather-api/": `https://api.openweathermap.org/data/3.5/weather?appid=${process.env.API_KEY}&`,
         "/weather-api/": {
-            target: `https://pierrefhapp.dev?appid=${process.env.API_KEY}`,
+            target: `https://pierrefhapp.dev`,
             pathRewrite: { "^/weather-api/": "" },
         },
 
