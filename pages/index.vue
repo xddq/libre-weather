@@ -32,6 +32,7 @@
                     w-40
                     mt-2
                 "
+                @click="fetchApi"
             >
                 Get weather!
             </button>
@@ -59,13 +60,23 @@
 </template>
 
 <script lang="ts">
+import { Context } from "@nuxt/types";
 import { Component, Vue } from "nuxt-property-decorator";
 
-@Component
+@Component({ name: "LandingPage" })
 export default class extends Vue {
-    hello() {
-        const x = "world";
-        return `hello ${x}`;
+    asyncData(context: Context) {
+        // console.log("async hello", "key: ", context.$config.API_KEY);
+        // context.$axios.get("/weather-api/&q=Mexico");
+    }
+
+    async fetchApi() {
+        try {
+            const result = await this.$axios.$get("/weather-api/");
+            console.log(result);
+        } catch (e) {
+            console.log("got an error calling weather api.");
+        }
     }
 }
 </script>
