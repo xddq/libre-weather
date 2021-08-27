@@ -32,7 +32,12 @@ export default {
 
     // Will be called on every server request. src: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-servermiddleware
     // typescript: https://typescript.nuxtjs.org/cookbook/server-middlewares/
-    serverMiddleware: ["~/server-middleware/logger"],
+    serverMiddleware: [
+        {
+            path: "/api",
+            handler: "~/server-middleware/rest.js",
+        },
+    ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
@@ -46,18 +51,19 @@ export default {
     modules: ["@nuxtjs/axios"],
 
     axios: {
-        proxy: true, // Can be also an object with default options
+        // DISABLE PROXY FOR TESTING
+        proxy: false, // Can be also an object with default options
     },
 
-    proxy: {
-        // "/weather-api/": `https://api.openweathermap.org/data/3.5/weather?appid=${process.env.API_KEY}&`,
-        "/weather-api/": {
-            target: `https://pierrefhapp.dev`,
-            pathRewrite: { "^/weather-api/": "" },
-        },
-
-        // /?w=hello/weather-apiq/q=Aachen
-    },
+    // proxy: {
+    //     // "/weather-api/": `https://api.openweathermap.org/data/3.5/weather?appid=${process.env.API_KEY}&`,
+    //     "/weather-api/": {
+    //         target: `https://pierrefhapp.dev`,
+    //         pathRewrite: { "^/weather-api/": "" },
+    //     },
+    //
+    //     // /?w=hello/weather-apiq/q=Aachen
+    // },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},

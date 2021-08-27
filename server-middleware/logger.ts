@@ -1,6 +1,8 @@
 import { ServerMiddleware } from "@nuxt/types";
 
 const myServerMiddleware: ServerMiddleware = function (req, res, next) {
+    // disables middleware
+    next();
     const apiProxyRoute = "/weather-middleware/";
     const url: string = req.url ?? "";
     const matched = url.match("/weather-middleware/.*");
@@ -13,7 +15,6 @@ const myServerMiddleware: ServerMiddleware = function (req, res, next) {
         //     q: city,
         // });
 
-        console.log(axios);
         console.log(city, process.env.API_KEY);
         res.end("test");
         return;
