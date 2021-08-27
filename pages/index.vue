@@ -74,10 +74,6 @@ export default class extends Vue {
 
     async fetchApi() {
         try {
-            // old attempt
-            // const result = await this.$axios.$get(
-            //     `/weather-middleware/${this.apiInput}`
-            // );
             const params = { params: { q: this.apiInput } };
             const result = await this.$axios.get("/api/getJSON", params);
             console.log(result);

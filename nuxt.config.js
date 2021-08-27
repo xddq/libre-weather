@@ -35,6 +35,7 @@ export default {
     serverMiddleware: [
         {
             path: "/api",
+            // TODO: make .ts?
             handler: "~/server-middleware/rest.js",
         },
     ],

@@ -17,14 +17,16 @@ const app = express();
 app.use(express.json());
 
 app.all("/getJSON", async (req, res) => {
-    const x = await axios.get("https://example.com");
     // merges query into our api key enables us to handle user specified api key
     // by overwriting the .env one
+    console.log(process.env.API_KEY);
     const params = Object.assign({ appid: process.env.API_KEY }, req.query);
     console.log(params);
     try {
         // forward modified request to weather api
-        const { status, data } = await axios.get(process.env.API_URL);
+        const { status, data } = await axios.get(process.env.API_URL, {
+            params,
+        });
         res.status(status).send(data);
     } catch (e) {
         res.status(500).send(e);
