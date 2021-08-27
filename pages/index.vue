@@ -12,6 +12,7 @@
             "
         >
             <input
+                v-model="apiInput"
                 class="
                     text-center
                     border border-solid
@@ -65,6 +66,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 
 @Component({ name: "LandingPage" })
 export default class extends Vue {
+    apiInput: string = "";
     asyncData(context: Context) {
         // console.log("async hello", "key: ", context.$config.API_KEY);
         // context.$axios.get("/weather-api/&q=Mexico");
@@ -73,7 +75,14 @@ export default class extends Vue {
     async fetchApi() {
         try {
             // werks
-            const result = await this.$axios.$get("/weather-api/?q=Aachen");
+
+            // const url = new URLSearchParams();
+            // const result = await this.$axios.$post("/weather-middleware/", {
+            //     params: { q: this.apiInput },
+            // });
+            const result = await this.$axios.$get(
+                `/weather-middleware/${this.apiInput}`
+            );
             console.log(result);
         } catch (e) {
             console.log("got an error calling weather api.");
