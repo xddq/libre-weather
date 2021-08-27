@@ -10,18 +10,25 @@
 
 // did not work?
 import express from "express";
-
-console.log("hello from ts !");
+import axios from "axios";
 
 const app = express();
 
 app.use(express.json());
 
-app.all("/getJSON", (req, res) => {
-    // res.json({ data: "data" });
-    res.status(200).send("getJSON! :)");
+app.all("/getJSON", async (req, res) => {
+    const x = await axios.get("https://example.com");
+    // merges query into our api key enables us to handle user specified api key
+    // by overwriting the .env one
+    const params = Object.assign({ appid: process.env.API_KEY }, req.query);
+    console.log(params);
+    try {
+        // forward modified request to weather api
+        const { status, data } = await axios.get(process.env.API_URL);
+        res.status(status).send(data);
+    } catch (e) {
+        res.status(500).send(e);
+    }
 });
-
-app.use((req, res, next) => res.status(200).send("hello"));
 
 export default app;
