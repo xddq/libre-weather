@@ -16,12 +16,18 @@ const app = express();
 
 app.use(express.json());
 
-app.all("/getJSON", async (req, res) => {
+// proxy all requests to our api
+const { createProxyMiddleware } = require("http-proxy-middleware");
+const weatherApiProxy = createProxyMiddleware({ target: process.env.API_URL });
+// app.use(weatherApiProxy);
+
+app.all("/getJSON", weatherApiProxy, async (req, res) => {
     // merges query into our api key enables us to handle user specified api key
     // by overwriting the .env one
-    console.log(process.env.API_KEY);
+    console.log("hello");
+    console.log("api key:", process.env.API_KEY);
     const params = Object.assign({ appid: process.env.API_KEY }, req.query);
-    console.log(params);
+    console.log("params: ", params);
     try {
         // forward modified request to weather api
         const { status, data } = await axios.get(process.env.API_URL, {
