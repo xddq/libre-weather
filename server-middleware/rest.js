@@ -1,40 +1,29 @@
-// const express = require("express");
-// const app = express();
-//
-// app.use(express.json());
-// app.all("/api", (req, res) => {
-//     res.json({ data: "data" });
-// });
-//
-// module.exports = app;
-
-// did not work?
 import express from "express";
 import axios from "axios";
+import cors from "cors";
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
-// proxy all requests to our api
-const { createProxyMiddleware } = require("http-proxy-middleware");
-const weatherApiProxy = createProxyMiddleware({ target: process.env.API_URL });
-// app.use(weatherApiProxy);
-
-app.all("/getJSON", weatherApiProxy, async (req, res) => {
-    // merges query into our api key enables us to handle user specified api key
-    // by overwriting the .env one
-    console.log("hello");
-    console.log("api key:", process.env.API_KEY);
+app.all("/getJSON", async (req, res) => {
+    // merges query into our api key. enables us to handle user specified api
+    // key by overwriting the .env one
     const params = Object.assign({ appid: process.env.API_KEY }, req.query);
-    console.log("params: ", params);
+    console.log(params);
+    const getParams = new URLSearchParams(params);
+    console.log("params: ", getParams);
+
+    // TODO(pierre): try adding headers?
     try {
         // forward modified request to weather api
-        const { status, data } = await axios.get(process.env.API_URL, {
-            params,
-        });
+        const { status, data } = await axios.get(
+            `${process.env.API_URL}?${getParams}`
+        );
+        console.log("success!");
         res.status(status).send(data);
     } catch (e) {
+        console.log(e);
         res.status(500).send(e);
     }
 });

@@ -53,7 +53,7 @@ export default {
 
     axios: {
         // DISABLE PROXY FOR TESTING
-        proxy: false, // Can be also an object with default options
+        proxy: true, // Can be also an object with default options
     },
 
     // proxy: {
