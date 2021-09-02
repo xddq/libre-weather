@@ -17,22 +17,32 @@ app.use(helmet());
 app.all("/weather", async (req, res) => {
     // makes sure we have an api key set in client or server
     if (req.query.apiKey === null && process.env.API_KEY === null) {
-        res.status(401).json({
+        return res.status(401).json({
             message:
                 "You did not set up an api key in your server or in your frontend!",
         });
     }
+    // makes sure we have the api url set
+    if (process.env.API_URL === undefined || process.env.API_URL === null) {
+        return res.status(500).json({
+            message: "Can't proxy request because API_URL was not set!",
+        });
+    }
 
-    // build query params for get request
+    // allows overwriting default api key with a user specified one.
+    const queryParams = Object.assign(
+        { appid: process.env.API_KEY },
+        req.query
+    );
 
     try {
         // forward modified request to weather api
-        const { status, data } = await axios.get("test");
-        console.log("success!");
-        res.status(status).send(data);
+        const { status, data } = await axios.get(process.env.API_URL, {
+            params: queryParams,
+        });
+        return res.status(status).send(data);
     } catch (e) {
-        console.log(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
     }
 });
 
