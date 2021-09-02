@@ -53,7 +53,7 @@
             <div class="results flex flex-col items-center justify-center">
                 <div class="caption">Results</div>
                 <div class="result">
-                    <pre>test.</pre>
+                    <pre>{{ result }}</pre>
                 </div>
             </div>
         </div>
@@ -66,11 +66,13 @@ import { Component, Vue } from "nuxt-property-decorator";
 @Component({ name: "LandingPage" })
 export default class LandingPage extends Vue {
     city: string = "";
+    result: object = null;
 
     async fetchApi() {
         try {
             const params = { params: { q: this.city } };
             const result = await this.$axios.get("/api/weather", params);
+            this.result = result.data;
         } catch (e) {
             // TODO(pierre). create toast message with error message.
             console.log("got an error calling weather api.");

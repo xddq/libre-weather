@@ -4,7 +4,9 @@
     @created 02.09.2021
     @file Displays weather data for a given location.
 -->
-    <div></div>
+    <div>
+        <pre>test :]</pre>
+    </div>
 </template>
 
 <script lang="ts">
