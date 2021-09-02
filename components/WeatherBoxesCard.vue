@@ -1,8 +1,8 @@
 <template>
     <!--
-    @author: Pierre Dahmani
-    @created: 01.09.2021
-    @file: Container for weather boxes. One weather box contains data for a
+    @author Pierre Dahmani
+    @created 01.09.2021
+    @file Container for weather boxes. One weather box contains data for a
 given location.
 -->
     <div>
@@ -16,7 +16,7 @@ given location.
 import { Component, Vue } from "nuxt-property-decorator";
 
 @Component
-export default class extends Vue {}
+export default class WeatherBoxesCard extends Vue {}
 </script>
 
 <style scoped></style>

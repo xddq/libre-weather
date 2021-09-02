@@ -61,18 +61,16 @@
 </template>
 
 <script lang="ts">
-import { Context } from "@nuxt/types";
 import { Component, Vue } from "nuxt-property-decorator";
 
 @Component({ name: "LandingPage" })
-export default class extends Vue {
+export default class LandingPage extends Vue {
     city: string = "";
 
     async fetchApi() {
         try {
             const params = { params: { q: this.city } };
             const result = await this.$axios.get("/api/weather", params);
-            console.log(result);
         } catch (e) {
             // TODO(pierre). create toast message with error message.
             console.log("got an error calling weather api.");
