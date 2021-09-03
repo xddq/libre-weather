@@ -16,10 +16,6 @@ export default {
         ],
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
-    // config that is only available in the server side.
-    privateRuntimeConfig: {
-        API_KEY: process.env.API_KEY,
-    },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [],
@@ -51,19 +47,8 @@ export default {
     modules: ["@nuxtjs/axios"],
 
     axios: {
-        // DISABLE PROXY FOR TESTING
         proxy: true, // Can be also an object with default options
     },
-
-    // proxy: {
-    //     // "/weather-api/": `https://api.openweathermap.org/data/3.5/weather?appid=${process.env.API_KEY}&`,
-    //     "/weather-api/": {
-    //         target: `https://pierrefhapp.dev`,
-    //         pathRewrite: { "^/weather-api/": "" },
-    //     },
-    //
-    //     // /?w=hello/weather-apiq/q=Aachen
-    // },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},

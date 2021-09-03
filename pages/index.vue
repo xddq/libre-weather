@@ -39,40 +39,28 @@
             </button>
         </div>
 
-        <div
-            class="
-                mt-4
-                flex
-                justify-center
-                items-center
-                border border-green-50
-                bg-green-50
-                w-full
-            "
-        >
-            <div class="results flex flex-col items-center justify-center">
-                <div class="caption">Results</div>
-                <div class="result">
-                    <pre>{{ result }}</pre>
-                </div>
-            </div>
-        </div>
+        <weather-box :weather-data="weatherData" />
     </div>
 </template>
 
 <script lang="ts">
+// function imports
 import { Component, Vue } from "nuxt-property-decorator";
+// component imports
+import WeatherBox from "~/components/WeatherBox.vue";
+// type and interface imports
+import { WeatherResponse } from "~/types/Weather";
 
-@Component({ name: "LandingPage" })
+@Component({ name: "LandingPage", components: { WeatherBox } })
 export default class LandingPage extends Vue {
     city: string = "";
-    result: object = null;
+    weatherData: WeatherResponse | undefined;
 
     async fetchApi() {
         try {
             const params = { params: { q: this.city } };
             const result = await this.$axios.get("/api/weather", params);
-            this.result = result.data;
+            this.weatherData = result.data;
         } catch (e) {
             // TODO(pierre). create toast message with error message.
             console.log("got an error calling weather api.");
