@@ -1,0 +1,5 @@
+- append city and country to query ( MAYBE: think about state for us queries...?)
+- add translations to all text (default to english) i18n!
+- build box for hourly and weekly data (figma -> hourly data left and weekly
+  data right. back button on right if one of them is open)
+-

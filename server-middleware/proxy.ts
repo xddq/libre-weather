@@ -16,6 +16,13 @@ app.use(morgan("combined"));
 app.use(helmet());
 
 app.all("/weather", async (req, res) => {
+    // makes sure we have input for our api call
+    if (req?.query?.q === undefined) {
+        return res.status(401).json({
+            message: "You need to pass a city and a country! e.g. 'Berlin, de'",
+        });
+    }
+
     // makes sure we have an api key set in client or server
     if (req.query.apiKey === null && process.env.API_KEY === null) {
         return res.status(401).json({
@@ -65,6 +72,37 @@ app.all("/weather", async (req, res) => {
         const weatherResult = await axios.get(process.env.API_ONE_CALL_URL, {
             params: weatherQueryParams,
         });
+
+        if (!(typeof req.query.q === "string")) {
+            throw new TypeError(
+                `Unexpected query type. Should be string but was: ${typeof req
+                    .query.q}`
+            );
+        }
+        // what is passed for non us weather data calls
+        // city, country
+        // what is passed for us weather data calls
+        // city, state, country
+        // src: https://openweathermap.org/api/geocoding-api#direct_name
+        const locationParams: string[] = req.query.q
+            .split(",")
+            .map((location) => location.trim());
+        switch (locationParams.length) {
+            case 2:
+                weatherResult.data.city = locationParams[0];
+                weatherResult.data.country = locationParams[1];
+                break;
+            case 3:
+                weatherResult.data.city = locationParams[0];
+                weatherResult.data.state = locationParams[1];
+                weatherResult.data.country = locationParams[2];
+                break;
+            default:
+                throw new Error(
+                    `Unexpected amount of locationParams! Amount: ${locationParams.length}`
+                );
+        }
+
         return res.status(200).send(weatherResult.data);
     } catch (e) {
         return res.status(500).send("Proxying requests did throw an error.");

@@ -40,7 +40,6 @@
         </div>
 
         <weather-box :weather-data="weatherData" :test="`hello`" />
-        <button @click="debug">debug</button>
     </div>
 </template>
 
@@ -56,10 +55,6 @@ import { WeatherResponse } from "~/types/Weather";
 export default class LandingPage extends Vue {
     city: string = "";
     weatherData: WeatherResponse | null = null;
-
-    debug() {
-        console.log("weatherData: ", this?.weatherData);
-    }
 
     async fetchApi() {
         try {
