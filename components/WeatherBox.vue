@@ -83,43 +83,43 @@ import { WeatherResponse } from "~/types/Weather";
 
 @Component
 export default class WeatherBox extends Vue {
-    @Prop() weatherData: WeatherResponse | undefined;
+    @Prop() weatherData!: WeatherResponse | null;
 
     get city() {
         console.log(this.weatherData);
-        if (this.weatherData === undefined) {
+        if (this.weatherData === null) {
             return "waiting for your query";
         }
-        // return `City: ${this.weatherData.city}
-        //             Country: ${this.weatherData.country}`;
+        return `City: ${this.weatherData.city}
+                    Country: ${this.weatherData.country}`;
     }
 
     get temperature() {
-        if (this.weatherData === undefined) {
+        if (this.weatherData === null) {
             return "waiting for your query";
         }
-        // return `Temperature: ${this.weatherData.current.feels_like}°C`;
+        return `Temperature: ${this.weatherData.current.feels_like}°C`;
     }
 
     get wind() {
-        if (this.weatherData === undefined) {
+        if (this.weatherData === null) {
             return "waiting for your query";
         }
-        // return `Wind speed: ${this.weatherData.current.wind_speed}m/s`;
+        return `Wind speed: ${this.weatherData.current.wind_speed}m/s`;
     }
 
     get humidity() {
-        if (this.weatherData === undefined) {
+        if (this.weatherData === null) {
             return "waiting for your query";
         }
-        // return `humidity: ${this.weatherData.current.humidity}%`;
+        return `humidity: ${this.weatherData.current.humidity}%`;
     }
 
     get pressure() {
-        if (this.weatherData === undefined) {
+        if (this.weatherData === null) {
             return "waiting for your query";
         }
-        // return `air pressure: ${this.weatherData.current.pressure} hPa`;
+        return `air pressure: ${this.weatherData.current.pressure} hPa`;
     }
 }
 </script>
