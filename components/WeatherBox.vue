@@ -52,7 +52,7 @@
                         border border-red-300
                     "
                 >
-                    Aachen, DE
+                    {{ city }}
                 </div>
                 <div
                     class="
@@ -64,11 +64,11 @@
                         border border-red-300
                     "
                 >
-                    20°C
+                    {{ temperature }}
                 </div>
-                <div class="wind">Wind: 2.6m/s</div>
-                <div class="humidity">Humidity: 60%</div>
-                <div class="pressure">1000 hPa</div>
+                <div class="wind">{{ wind }}</div>
+                <div class="humidity">{{ humidity }}</div>
+                <div class="pressure">{{ pressure }}</div>
             </div>
         </div>
     </div>
@@ -84,6 +84,43 @@ import { WeatherResponse } from "~/types/Weather";
 @Component
 export default class WeatherBox extends Vue {
     @Prop() weatherData: WeatherResponse | undefined;
+
+    get city() {
+        console.log(this.weatherData);
+        if (this.weatherData === undefined) {
+            return "waiting for your query";
+        }
+        // return `City: ${this.weatherData.city}
+        //             Country: ${this.weatherData.country}`;
+    }
+
+    get temperature() {
+        if (this.weatherData === undefined) {
+            return "waiting for your query";
+        }
+        // return `Temperature: ${this.weatherData.current.feels_like}°C`;
+    }
+
+    get wind() {
+        if (this.weatherData === undefined) {
+            return "waiting for your query";
+        }
+        // return `Wind speed: ${this.weatherData.current.wind_speed}m/s`;
+    }
+
+    get humidity() {
+        if (this.weatherData === undefined) {
+            return "waiting for your query";
+        }
+        // return `humidity: ${this.weatherData.current.humidity}%`;
+    }
+
+    get pressure() {
+        if (this.weatherData === undefined) {
+            return "waiting for your query";
+        }
+        // return `air pressure: ${this.weatherData.current.pressure} hPa`;
+    }
 }
 </script>
 

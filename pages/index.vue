@@ -39,7 +39,7 @@
             </button>
         </div>
 
-        <weather-box :weather-data="weatherData" />
+        <weather-box weather-data="weatherData" />
     </div>
 </template>
 
@@ -62,7 +62,6 @@ export default class LandingPage extends Vue {
             const result = await this.$axios.get("/api/weather", params);
             this.weatherData = result.data;
         } catch (e) {
-            // TODO(pierre). create toast message with error message.
             console.log("got an error calling weather api.");
         }
     }
