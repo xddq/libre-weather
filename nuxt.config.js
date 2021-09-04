@@ -41,6 +41,8 @@ export default {
         "@nuxt/typescript-build",
         // https://go.nuxtjs.dev/tailwindcss
         "@nuxtjs/tailwindcss",
+        // https://pwa.nuxtjs.org/setup
+        "@nuxtjs/pwa",
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -68,4 +70,14 @@ export default {
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
+
+    // pwa config
+    // src: https://pwa.nuxtjs.org/manifest/#default-options
+    pwa: {
+        manifest: {
+            name: "Libre Weather",
+            short_name: "Libre Weather",
+            lang: "en",
+        },
+    },
 };

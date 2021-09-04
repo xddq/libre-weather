@@ -20,16 +20,23 @@ settings?
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
+// type and interface imports
+import { WeatherResponse } from "~/types/Weather";
 
 @Component({ name: "HourlyWeatherCard", components: { WeatherBox } })
 export default class HourlyWeatherCard extends Vue {
-    // TODO(pierre): replace with size :]
-    boxes = [1, 2, 3];
     /**
      * @description All required weather data which is used to display the
      * informations. Will be passed to the child component.
      */
     @Prop() weatherData!: WeatherResponse | null;
+
+    get boxes() {
+        if (this.weatherData === null) {
+            return [];
+        }
+        return this.weatherData.hourly.length;
+    }
 }
 </script>
 

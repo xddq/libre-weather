@@ -1,5 +1,5 @@
 {
-    "name": "homepage",
+    "name": "libre-weather",
     "version": "1.0.0",
     "private": true,
     "scripts": {
@@ -28,6 +28,7 @@
         "@nuxt/types": "^2.15.7",
         "@nuxt/typescript-build": "^2.1.0",
         "@nuxtjs/eslint-config-typescript": "^6.0.1",
+        "@nuxtjs/pwa": "^3.3.5",
         "@nuxtjs/tailwindcss": "^4.2.1",
         "@types/cors": "^2.8.12",
         "@types/morgan": "^1.9.3",

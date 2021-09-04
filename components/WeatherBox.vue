@@ -267,22 +267,28 @@ export default class WeatherBox extends Vue {
      * buttons will be shown. Should also be shown in the initial/main weather
      * box.
      */
-    @Prop({ default: true }) mainCard: boolean;
+    @Prop({ default: true }) mainCard!: boolean;
 
     get weatherDataNotNull() {
         return this.weatherData !== null;
     }
 
     get description() {
-        return this.weatherData.current.weather[0].description;
+        return this.weatherData?.current?.weather[0].description ?? "";
     }
 
     get date() {
+        if (this.weatherData === null) {
+            return "";
+        }
         const currentDate = new Date(this.weatherData.current.dt * 1000);
         return currentDate.toLocaleDateString("de-DE");
     }
 
     get time() {
+        if (this.weatherData === null) {
+            return "";
+        }
         const currentDate = new Date(this.weatherData.current.dt * 1000);
         // TODO(pierre): maybe show am/pm with settings later.
         return currentDate.toLocaleTimeString("de-DE", {
@@ -292,11 +298,11 @@ export default class WeatherBox extends Vue {
     }
 
     get location() {
-        return this.weatherData.city;
+        return this.weatherData?.city ?? "";
     }
 
     get temperature() {
-        return this.weatherData.current.feels_like;
+        return this.weatherData?.current.feels_like ?? "";
     }
 
     get temperatureUnit() {
@@ -304,7 +310,7 @@ export default class WeatherBox extends Vue {
     }
 
     get windSpeed() {
-        return this.weatherData.current.wind_speed;
+        return this.weatherData?.current.wind_speed ?? "";
     }
 
     get windUnit() {
@@ -312,7 +318,7 @@ export default class WeatherBox extends Vue {
     }
 
     get humidity() {
-        return this.weatherData.current.humidity;
+        return this.weatherData?.current.humidity ?? "";
     }
 
     get humidityUnit() {
@@ -320,7 +326,7 @@ export default class WeatherBox extends Vue {
     }
 
     get pressure() {
-        return this.weatherData.current.pressure;
+        return this.weatherData?.current.pressure ?? "";
     }
 
     get pressureUnit() {
