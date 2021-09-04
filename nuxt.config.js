@@ -44,7 +44,23 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ["@nuxtjs/axios"],
+    modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
+
+    // internationalization: https://i18n.nuxtjs.org/
+    i18n: {
+        // TODO(pierre): set this up for 'en' and expand once app is usable.
+        locales: ["en"], //  "de", "es", "fr"],
+        defaultLocale: "en",
+        vueI18nLoader: true,
+        vueI18n: {
+            fallbackLocale: "en",
+            messages: {
+                en: {
+                    welcome: "Welcome",
+                },
+            },
+        },
+    },
 
     axios: {
         proxy: true, // Can be also an object with default options

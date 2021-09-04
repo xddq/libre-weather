@@ -27,7 +27,7 @@
             "@/*": ["./*"]
         },
         // type definition from nuxt and node
-        "types": ["@nuxt/types", "@types/node", "@nuxtjs/axios"]
+        "types": ["@nuxt/types", "@types/node", "@nuxtjs/axios", "@nuxtjs/i18n"]
     },
     // never lint node_modules, .nuxt and dist folder
     "exclude": ["node_modules", ".nuxt", "dist"]

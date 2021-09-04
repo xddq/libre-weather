@@ -79,6 +79,10 @@ export interface WeatherResponse {
     minutely: Minutely[];
     hourly: Current[];
     daily: Daily[];
+    // added by our proxy
+    city: string;
+    country: string;
+    state?: string;
 }
 
 export interface Current {

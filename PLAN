@@ -1,5 +1,18 @@
-- append city and country to query ( MAYBE: think about state for us queries...?)
 - add translations to all text (default to english) i18n!
 - build box for hourly and weekly data (figma -> hourly data left and weekly
   data right. back button on right if one of them is open)
--
+- rate limit calls
+
+
+TODOS:
+- display hourly and weekly data
+- add onclick and only display hourly or weekly at once.
+- add nuxt pwa module
+- add translanslations (en only) and case for [loading, initial]
+- add default metric to german stuff
+- think about settings page (STATE=US (0/1), own api_KEY string, locale =
+  en( maybe soon more),
+
+
+decisions:
+- use i18n in sfc components to possibly reuse components.

@@ -5,70 +5,141 @@
     @file Displays weather data for a given location.
 -->
     <div class="flex flex-col w-full px-2 pt-2">
-        <div class="weather-widget flex w-full">
+        <div class="weather-widget flex flex-col w-full border border-red-300">
             <!-- TODO(pierre): how to make this icon square?
                 maybe check this: https://carlanderson.xyz/how-to-keep-your-flexbox-square/ -->
-            <div
-                class="
-                    icon-description
-                    flex flex-col
-                    w-1/3
-                    h-auto
-                    border border-red-300
-                "
-            >
-                <div class="icon border border-green-300 h-2/3">icon here</div>
+            <div class="basic-current-infos flex w-full">
                 <div
                     class="
-                        description
-                        overflow-hidden
-                        border
-                        broder-green-300
-                        h-1/3
+                        icon-description
+                        flex flex-col
+                        w-1/3
+                        h-auto
+                        items-center
+                        justify-center
+                        border border-red-300
                     "
                 >
-                    description here
+                    <div
+                        class="
+                            icon
+                            flex
+                            w-full
+                            items-center
+                            justify-center
+                            text-center
+                            h-2/3
+                        "
+                    >
+                        icon here
+                    </div>
+                    <div
+                        class="
+                            description
+                            flex
+                            justify-center
+                            items-center
+                            w-full
+                            text-center
+                            overflow-hidden
+                            border border-green-300
+                            h-1/3
+                        "
+                    >
+                        {{ description }}
+                    </div>
+                </div>
+                <div
+                    class="
+                        text-info-weather
+                        flex flex-col
+                        justif-center
+                        items-center
+                        w-2/3
+                        h-auto
+                        border border-green-300
+                    "
+                >
+                    <div
+                        class="
+                            city-and-state
+                            flex
+                            w-full
+                            justify-center
+                            items-center
+                            text-center
+                            border border-red-300
+                        "
+                    >
+                        {{ location }}
+                    </div>
+                    <div
+                        class="
+                            temp
+                            flex
+                            w-full
+                            justify-center
+                            items-center
+                            border border-red-300
+                        "
+                    >
+                        {{ temperature }}
+                    </div>
+                    <div class="wind">{{ wind }}</div>
+                    <div class="humidity">{{ humidity }}</div>
+                    <div class="pressure">{{ pressure }}</div>
                 </div>
             </div>
             <div
                 class="
-                    text-info-weather
-                    flex flex-col
-                    justif-center
+                    hourly-and-weekly
+                    flex
                     items-center
-                    w-2/3
-                    h-auto
+                    justify-start justify-items-start
+                    w-full
                     border border-green-300
                 "
             >
                 <div
                     class="
-                        city-and-state
+                        hourly
+                        text
                         flex
-                        w-full
-                        justify-center
                         items-center
+                        justify-center
                         text-center
+                        w-1/3
                         border border-red-300
                     "
                 >
-                    {{ city }}
+                    hourly stuff
                 </div>
                 <div
                     class="
-                        temp
+                        weekly
+                        text
                         flex
-                        w-full
-                        justify-center
                         items-center
+                        justify-center
+                        text-center
+                        w-1/3
                         border border-red-300
                     "
                 >
-                    {{ temperature }}
+                    weekly stuff
                 </div>
-                <div class="wind">{{ wind }}</div>
-                <div class="humidity">{{ humidity }}</div>
-                <div class="pressure">{{ pressure }}</div>
+                <div
+                    class="
+                        icon
+                        flex
+                        text-center
+                        w-1/3
+                        items-center
+                        justify-center
+                    "
+                >
+                    up or down
+                </div>
             </div>
         </div>
     </div>
@@ -85,12 +156,22 @@ import { WeatherResponse } from "~/types/Weather";
 export default class WeatherBox extends Vue {
     @Prop() weatherData!: WeatherResponse | null;
 
-    get city() {
-        console.log(this.weatherData);
+    get description() {
+        if (this.weatherData == null) {
+            return "waiting for your query";
+        }
+        return this.weatherData.current.weather[0].description;
+    }
+
+    get location() {
         if (this.weatherData === null) {
             return "waiting for your query";
         }
-        return `City: ${this.weatherData.city}
+        if (this.weatherData?.state === undefined) {
+            return `City: ${this.weatherData.city}
+                    Country: ${this.weatherData.country}`;
+        }
+        return `City: ${this.weatherData.city} State: ${this.weatherData.state}
                     Country: ${this.weatherData.country}`;
     }
 
@@ -112,7 +193,7 @@ export default class WeatherBox extends Vue {
         if (this.weatherData === null) {
             return "waiting for your query";
         }
-        return `humidity: ${this.weatherData.current.humidity}%`;
+        return `Humidity: ${this.weatherData.current.humidity}%`;
     }
 
     get pressure() {
@@ -123,5 +204,16 @@ export default class WeatherBox extends Vue {
     }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界"
+  }
+}
+</i18n>
 
 <style scoped></style>
