@@ -91,6 +91,7 @@
                 </div>
             </div>
             <div
+                v-if="mainCard"
                 class="
                     hourly-and-weekly
                     flex
@@ -111,6 +112,7 @@
                         w-1/3
                         border border-red-300
                     "
+                    @click="$emit('toggle-hourly')"
                 >
                     hourly stuff
                 </div>
@@ -152,9 +154,19 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
 import { WeatherResponse } from "~/types/Weather";
 
-@Component
+@Component({ name: "WeatherBox", components: {} })
 export default class WeatherBox extends Vue {
+    /**
+     * @description All required weather data which is used to display the
+     * informations.
+     */
     @Prop() weatherData!: WeatherResponse | null;
+    /**
+     * @description Flag that determines whether the "hourly" and "weekly"
+     * buttons will be shown. Should also be shown in the initial/main weather
+     * box.
+     */
+    @Prop({ default: true }) mainCard: boolean;
 
     get description() {
         if (this.weatherData == null) {

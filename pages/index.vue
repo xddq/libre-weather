@@ -39,7 +39,14 @@
             </button>
         </div>
 
-        <weather-box :weather-data="weatherData" :test="`hello`" />
+        <weather-box
+            :weather-data="weatherData"
+            @toggle-hourly="toggleHourly"
+        />
+        <hourly-weather-card
+            v-if="hourly"
+            :weather-data="weatherData"
+        ></hourly-weather-card>
     </div>
 </template>
 
@@ -48,13 +55,25 @@
 import { Component, Vue } from "nuxt-property-decorator";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
+import HourlyWeatherCard from "~/components/HourlyWeatherCard.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/Weather";
 
-@Component({ name: "LandingPage", components: { WeatherBox } })
+@Component({
+    name: "LandingPage",
+    components: { WeatherBox, HourlyWeatherCard },
+})
 export default class LandingPage extends Vue {
     city: string = "";
     weatherData: WeatherResponse | null = null;
+    // determines whether the hourly data will be displayed
+    hourly: boolean = false;
+
+    toggleHourly() {
+        console.log("hourly before: ", this.hourly);
+        this.hourly = !this.hourly;
+        console.log("hourly after: ", this.hourly);
+    }
 
     async fetchApi() {
         try {
