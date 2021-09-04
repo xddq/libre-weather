@@ -4,8 +4,18 @@
     @created 02.09.2021
     @file Displays weather data for a given location.
 -->
-    <div class="flex flex-col w-full px-2 pt-2">
-        <div class="weather-widget flex flex-col w-full border border-red-300">
+    <div class="flex flex-col text-xl w-full px-2 pt-2">
+        <div
+            v-if="weatherDataNotNull"
+            class="
+                weather-widget
+                flex flex-col
+                w-full
+                bg-blue-200
+                rounded-xl
+                shadow-md
+            "
+        >
             <!-- TODO(pierre): how to make this icon square?
                 maybe check this: https://carlanderson.xyz/how-to-keep-your-flexbox-square/ -->
             <div class="basic-current-infos flex w-full">
@@ -17,7 +27,6 @@
                         h-auto
                         items-center
                         justify-center
-                        border border-red-300
                     "
                 >
                     <div
@@ -42,7 +51,6 @@
                             w-full
                             text-center
                             overflow-hidden
-                            border border-green-300
                             h-1/3
                         "
                     >
@@ -57,90 +65,183 @@
                         items-center
                         w-2/3
                         h-auto
-                        border border-green-300
                     "
                 >
-                    <div
-                        class="
-                            city-and-state
-                            flex
-                            w-full
-                            justify-center
-                            items-center
-                            text-center
-                            border border-red-300
-                        "
-                    >
-                        {{ location }}
+                    <div class="flex time-and-location w-full">
+                        <div
+                            class="
+                                time
+                                flex
+                                w-full
+                                justify-center
+                                items-center
+                                overflow-hidden
+                                pt-1
+                                pl-1
+                            "
+                        >
+                            {{ location }}
+                        </div>
+                        <div
+                            class="
+                                city-and-state
+                                flex
+                                justify-center
+                                items-center
+                                text-center
+                                pt-1
+                                pr-1
+                            "
+                        >
+                            {{ date }}
+                        </div>
                     </div>
-                    <div
-                        class="
-                            temp
-                            flex
-                            w-full
-                            justify-center
-                            items-center
-                            border border-red-300
-                        "
-                    >
-                        {{ temperature }}
+                    <div class="row flex w-full justify-center items-center">
+                        <div
+                            class="
+                                description
+                                flex
+                                justify-left
+                                items-center
+                                w-1/2
+                                pl-1
+                            "
+                        >
+                            {{ $t("temperature") }}
+                        </div>
+                        <div
+                            class="value flex justify-center items-center w-1/2"
+                        >
+                            {{ temperature }} {{ temperatureUnit }}
+                        </div>
                     </div>
-                    <div class="wind">{{ wind }}</div>
-                    <div class="humidity">{{ humidity }}</div>
-                    <div class="pressure">{{ pressure }}</div>
+                    <div class="row flex w-full justify-center items-center">
+                        <div
+                            class="
+                                description
+                                flex
+                                justify-left
+                                items-center
+                                w-1/2
+                                pl-1
+                            "
+                        >
+                            {{ $t("time") }}
+                        </div>
+                        <div
+                            class="value flex justify-center items-center w-1/2"
+                        >
+                            {{ time }}
+                        </div>
+                    </div>
+                    <div class="row flex w-full justify-center items-center">
+                        <div
+                            class="
+                                description
+                                flex
+                                justify-left
+                                items-center
+                                w-1/2
+                                pl-1
+                            "
+                        >
+                            {{ $t("wind") }}
+                        </div>
+                        <div
+                            class="value flex justify-center items-center w-1/2"
+                        >
+                            {{ windSpeed }} {{ windUnit }}
+                        </div>
+                    </div>
+                    <div class="row flex w-full justify-center items-center">
+                        <div
+                            class="
+                                description
+                                flex
+                                justify-left
+                                items-center
+                                w-1/2
+                                pl-1
+                            "
+                        >
+                            {{ $t("humidity") }}
+                        </div>
+                        <div
+                            class="value flex justify-center items-center w-1/2"
+                        >
+                            {{ humidity }} {{ humidityUnit }}
+                        </div>
+                    </div>
+                    <div class="row flex w-full justify-center items-center">
+                        <div
+                            class="
+                                description
+                                flex
+                                justify-left
+                                items-center
+                                w-1/2
+                                pl-1
+                            "
+                        >
+                            {{ $t("pressure") }}
+                        </div>
+                        <div
+                            class="value flex justify-center items-center w-1/2"
+                        >
+                            {{ pressure }} {{ pressureUnit }}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div
-                v-if="mainCard"
-                class="
-                    hourly-and-weekly
-                    flex
-                    items-center
-                    justify-start justify-items-start
-                    w-full
-                    border border-green-300
-                "
-            >
-                <div
+        </div>
+        <div
+            v-if="mainCard && weatherDataNotNull"
+            class="
+                hourly-and-weekly
+                flex
+                items-center
+                justify-center
+                w-full
+                mt-2
+            "
+        >
+            <div class="hourly flex justify-center items-center w-full">
+                <button
                     class="
                         hourly
                         text
                         flex
+                        bg-blue-400
+                        hover:bg-blue-600
+                        rounded-xl
                         items-center
                         justify-center
                         text-center
-                        w-1/3
-                        border border-red-300
+                        w-20
+                        h-12
                     "
                     @click="$emit('toggle-hourly')"
                 >
-                    hourly stuff
-                </div>
+                    hourly
+                </button>
+            </div>
+            <div class="weekly flex w-full justify-center items-center">
                 <div
                     class="
                         weekly
                         text
                         flex
+                        bg-blue-400
+                        hover:bg-blue-600
+                        rounded-xl
                         items-center
                         justify-center
                         text-center
-                        w-1/3
-                        border border-red-300
+                        w-20
+                        h-12
                     "
                 >
-                    weekly stuff
-                </div>
-                <div
-                    class="
-                        icon
-                        flex
-                        text-center
-                        w-1/3
-                        items-center
-                        justify-center
-                    "
-                >
-                    up or down
+                    weekly
                 </div>
             </div>
         </div>
@@ -168,51 +269,62 @@ export default class WeatherBox extends Vue {
      */
     @Prop({ default: true }) mainCard: boolean;
 
+    get weatherDataNotNull() {
+        return this.weatherData !== null;
+    }
+
     get description() {
-        if (this.weatherData == null) {
-            return "waiting for your query";
-        }
         return this.weatherData.current.weather[0].description;
     }
 
+    get date() {
+        const currentDate = new Date(this.weatherData.current.dt * 1000);
+        return currentDate.toLocaleDateString("de-DE");
+    }
+
+    get time() {
+        const currentDate = new Date(this.weatherData.current.dt * 1000);
+        // TODO(pierre): maybe show am/pm with settings later.
+        return currentDate.toLocaleTimeString("de-DE", {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+    }
+
     get location() {
-        if (this.weatherData === null) {
-            return "waiting for your query";
-        }
-        if (this.weatherData?.state === undefined) {
-            return `City: ${this.weatherData.city}
-                    Country: ${this.weatherData.country}`;
-        }
-        return `City: ${this.weatherData.city} State: ${this.weatherData.state}
-                    Country: ${this.weatherData.country}`;
+        return this.weatherData.city;
     }
 
     get temperature() {
-        if (this.weatherData === null) {
-            return "waiting for your query";
-        }
-        return `Temperature: ${this.weatherData.current.feels_like}°C`;
+        return this.weatherData.current.feels_like;
     }
 
-    get wind() {
-        if (this.weatherData === null) {
-            return "waiting for your query";
-        }
-        return `Wind speed: ${this.weatherData.current.wind_speed}m/s`;
+    get temperatureUnit() {
+        return "°C";
+    }
+
+    get windSpeed() {
+        return this.weatherData.current.wind_speed;
+    }
+
+    get windUnit() {
+        return "m/s";
     }
 
     get humidity() {
-        if (this.weatherData === null) {
-            return "waiting for your query";
-        }
-        return `Humidity: ${this.weatherData.current.humidity}%`;
+        return this.weatherData.current.humidity;
+    }
+
+    get humidityUnit() {
+        return "%";
     }
 
     get pressure() {
-        if (this.weatherData === null) {
-            return "waiting for your query";
-        }
-        return `air pressure: ${this.weatherData.current.pressure} hPa`;
+        return this.weatherData.current.pressure;
+    }
+
+    get pressureUnit() {
+        return "hPa";
     }
 }
 </script>
@@ -220,10 +332,11 @@ export default class WeatherBox extends Vue {
 <i18n>
 {
   "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界"
+    "wind": "wind",
+    "time": "time",
+    "temperature": "temperature",
+    "humidity": "humidity",
+    "pressure": "pressure"
   }
 }
 </i18n>

@@ -16,3 +16,10 @@ TODOS:
 
 decisions:
 - use i18n in sfc components to possibly reuse components.
+
+
+maybe:
+- add locale depending on settings
+- how to cut/overflow hidden/ make only one row for location?
+- use icons from openweathermap api
+- create component for row?

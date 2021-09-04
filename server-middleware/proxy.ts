@@ -64,10 +64,12 @@ app.all("/weather", async (req, res) => {
         }
 
         // picks first result as best match
+        // TODO(pierre): get units from settins.
         const weatherQueryParams = {
             appid: apiKey,
             lat: geoData[0].lat,
             lon: geoData[0].lon,
+            units: "metric",
         };
         const weatherResult = await axios.get(process.env.API_ONE_CALL_URL, {
             params: weatherQueryParams,
