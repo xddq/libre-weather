@@ -2,7 +2,7 @@
     <!--
     @author Pierre Dahmani
     @created 04.09.2021
-    @file Displays weatherboxes for the next X (default 10) hours (TODO(pierre): set X in
+    @file Displays weatherboxes for the next x(default 10) hours (TODO(pierre): set X in
 settings?
 -->
     <hourly-weather-chart
@@ -45,15 +45,20 @@ export default class HourlyWeatherCard extends Vue {
         const hourlyWeather = this.weatherData.hourly;
         const temperatures = [];
         const hours = [];
-        // iterates once through the data, creating relevant data sets.
+        const images = [];
+        // iterates through the data once, creating relevant data sets.
         hourlyWeather.forEach((dataPoint) => {
             temperatures.push(dataPoint.temp);
             hours.push(new Date(dataPoint.dt * 1000).getHours());
+            // TODO(pierre): rather use/pass chartimages as prop.
+            // images will be used for the afterDraw plugin inside the chart.
+            images.push(`${dataPoint.weather[0].icon}-hourly.png`);
         });
         const temperatureDataset = {
             label: this.$t("temperature"),
             backgroundColor: "#f87979",
             data: temperatures.slice(0, 10),
+            img: images.slice(0, 10),
         };
         return {
             labels: hours.slice(0, 10),
@@ -72,29 +77,30 @@ export default class HourlyWeatherCard extends Vue {
                 text: this.$t("hourlyData"),
                 padding: 35,
             },
-            scales: {
-                yAxes: [
-                    {
-                        ticks: {
-                            // Include a dollar sign in the ticks
-                            callback(value, index, values) {
-                                return "$" + value;
-                            },
-                        },
-                    },
-                ],
-                xAxes: [
-                    {
-                        ticks: {
-                            // Include a dollar sign in the ticks
-                            callback(value, index, values) {
-                                return "$" + value;
-                            },
-                            // beginAtZero: true,
-                        },
-                    },
-                ],
-            },
+            // NOTE(pierre): just some testing. this syntax works.
+            // scales: {
+            //     yAxes: [
+            //         {
+            //             ticks: {
+            //                 // Include a dollar sign in the ticks
+            //                 callback(value, index, values) {
+            //                     return "$" + value;
+            //                 },
+            //             },
+            //         },
+            //     ],
+            //     xAxes: [
+            //         {
+            //             ticks: {
+            //                 // Include a dollar sign in the ticks
+            //                 callback(value, index, values) {
+            //                     return "$" + value;
+            //                 },
+            //                 // beginAtZero: true,
+            //             },
+            //         },
+            //     ],
+            // },
         };
     }
 }
