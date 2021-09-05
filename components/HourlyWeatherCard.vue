@@ -48,11 +48,7 @@ export default class HourlyWeatherCard extends Vue {
         // iterates once through the data, creating relevant data sets.
         hourlyWeather.forEach((dataPoint) => {
             temperatures.push(dataPoint.temp);
-            hours.push(
-                new Date(dataPoint.dt * 1000).toLocaleTimeString("de-DE", {
-                    hour: "2-digit",
-                })
-            );
+            hours.push(new Date(dataPoint.dt * 1000).getHours());
         });
         const temperatureDataset = {
             label: this.$t("temperature"),
@@ -67,17 +63,37 @@ export default class HourlyWeatherCard extends Vue {
 
     get chartOptions(): Chart.ChartOptions {
         return {
+            legend: {
+                position: "bottom",
+            },
             title: {
                 display: true,
                 position: "top",
                 text: this.$t("hourlyData"),
+                padding: 35,
             },
             scales: {
-                y: {
-                    // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
-                    // makes sure we start at 0 (if temperature is >= 0)
-                    suggestedMin: 0,
-                },
+                yAxes: [
+                    {
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback(value, index, values) {
+                                return "$" + value;
+                            },
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback(value, index, values) {
+                                return "$" + value;
+                            },
+                            // beginAtZero: true,
+                        },
+                    },
+                ],
             },
         };
     }
