@@ -5,13 +5,11 @@
     @file Displays weatherboxes for the next X (default 10) hours (TODO(pierre): set X in
 settings?
 -->
-    <div class="w-full flex flex-col justify-center items-center">
-        <div class="description">weather for the next 12 hours</div>
-        <hourly-weather-chart
-            :chart-data="chartData"
-            :option="chartOptions"
-        ></hourly-weather-chart>
-    </div>
+    <hourly-weather-chart
+        class="w-full px-2 flex justify-center items-center"
+        :chart-data="chartData"
+        :chart-options="chartOptions"
+    ></hourly-weather-chart>
 </template>
 
 <script lang="ts">
@@ -23,6 +21,7 @@ import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
 import TestChart from "~/components/TestChart.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/Weather";
+import "chart.js";
 
 @Component({
     name: "HourlyWeatherCard",
@@ -56,7 +55,7 @@ export default class HourlyWeatherCard extends Vue {
             );
         });
         const temperatureDataset = {
-            label: this.$t("hourlyData"),
+            label: this.$t("temperature"),
             backgroundColor: "#f87979",
             data: temperatures.slice(0, 10),
         };
@@ -66,14 +65,30 @@ export default class HourlyWeatherCard extends Vue {
         };
     }
 
-    get chartOptions() {}
+    get chartOptions(): Chart.ChartOptions {
+        return {
+            title: {
+                display: true,
+                position: "top",
+                text: this.$t("hourlyData"),
+            },
+            scales: {
+                y: {
+                    // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+                    // makes sure we start at 0 (if temperature is >= 0)
+                    suggestedMin: 0,
+                },
+            },
+        };
+    }
 }
 </script>
 
 <i18n>
 {
   "en": {
-    "hourlyData": "hourly temperature"
+    "hourlyData": "hourly weather data",
+    "temperature": "temperature"
   }
 }
 </i18n>

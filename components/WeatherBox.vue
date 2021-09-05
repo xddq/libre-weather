@@ -40,7 +40,11 @@
                             h-2/3
                         "
                     >
-                        icon here
+                        <img
+                            :src="icon"
+                            alt="`picture of ${description}`"
+                            class=""
+                        />
                     </div>
                     <div
                         class="
@@ -271,6 +275,13 @@ export default class WeatherBox extends Vue {
 
     get weatherDataNotNull() {
         return this.weatherData !== null;
+    }
+
+    get icon() {
+        if (this.weatherData === null) {
+            return "";
+        }
+        return `${this.weatherData.current.weather[0].icon}.png`;
     }
 
     get description() {
