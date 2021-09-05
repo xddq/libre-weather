@@ -45,7 +45,7 @@
         />
         <hourly-weather-card
             v-if="hourly"
-            :weather-data="weatherData"
+            :weather-data="hourlyWeather"
         ></hourly-weather-card>
     </div>
 </template>
@@ -73,6 +73,10 @@ export default class LandingPage extends Vue {
         console.log("hourly before: ", this.hourly);
         this.hourly = !this.hourly;
         console.log("hourly after: ", this.hourly);
+    }
+
+    get hourlyWeather() {
+        return this.weatherData?.hourly ?? [];
     }
 
     async fetchApi() {

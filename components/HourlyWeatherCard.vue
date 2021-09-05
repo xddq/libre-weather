@@ -18,7 +18,7 @@ settings?
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
 import { Chart } from "@types/chart.js";
-import { WeatherResponse } from "~/types/Weather";
+import { Current } from "~/types/Weather";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
@@ -30,10 +30,10 @@ import TestChart from "~/components/TestChart.vue";
 })
 export default class HourlyWeatherCard extends Vue {
     /**
-     * @description All required weather data which is used to display the
-     * informations. Will be passed to the child component.
+     * @description Hourly data which is used to create the dataset for the
+     * child component.
      */
-    @Prop() weatherData!: WeatherResponse | null;
+    @Prop({ type: Array, default: [] }) weatherData!: Current[];
 
     // images that will be passed into the weather chart. used for displaying
     // weather icons for the specific time/tick.
@@ -47,7 +47,7 @@ export default class HourlyWeatherCard extends Vue {
         if (this.weatherData === null) {
             return {};
         }
-        const hourlyWeather = this.weatherData.hourly;
+        const hourlyWeather = this.weatherData;
         const temperatures = [];
         const hours = [];
         this.images = [];

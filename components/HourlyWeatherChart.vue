@@ -15,8 +15,19 @@ export default class HourlyWeatherChart extends Mixins(
     mixins.reactiveProp,
     Bar
 ) {
+    /**
+     * @description Data for the chart.js object. Contains the temperatures and
+     * their specific timestamps.
+     */
     @Prop({ type: Object, default: null }) chartData!: Chart.ChartData;
+    /**
+     * @description Options for the chart.js object. See chart.js docu.
+     */
     @Prop({ type: Object, default: null }) chartOptions!: Chart.ChartOptions;
+    /**
+     * @description Images which will placed above each data point. Displaying the
+     * current weather situation.
+     */
     @Prop({ type: Array, default: [] }) chartTickImages!: string[];
 
     mounted() {
@@ -41,7 +52,7 @@ export default class HourlyWeatherChart extends Mixins(
                      */
                     ctx.drawImage(
                         image,
-                        x - xAxis._startPixel + 10,
+                        x - xAxis._startPixel + 5,
                         yAxis.top - 40
                     );
                 });
