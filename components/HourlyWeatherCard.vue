@@ -9,6 +9,7 @@ settings?
         class="w-full px-2 flex justify-center items-center"
         :chart-data="chartData"
         :chart-options="chartOptions"
+        :chart-tick-images="images"
     ></hourly-weather-chart>
 </template>
 
@@ -34,6 +35,10 @@ export default class HourlyWeatherCard extends Vue {
      */
     @Prop() weatherData!: WeatherResponse | null;
 
+    // images that will be passed into the weather chart. used for displaying
+    // weather icons for the specific time/tick.
+    images: string[] = [];
+
     /**
      * @description Constructs data for our hourly weather chart. Takes the next ten
      * entries resulting in a 10 hour forecast.
@@ -45,21 +50,19 @@ export default class HourlyWeatherCard extends Vue {
         const hourlyWeather = this.weatherData.hourly;
         const temperatures = [];
         const hours = [];
-        const images = [];
+        this.images = [];
         // iterates through the data once, creating relevant data sets.
         hourlyWeather.forEach((dataPoint) => {
             temperatures.push(dataPoint.temp);
             hours.push(new Date(dataPoint.dt * 1000).getHours());
-            // TODO(pierre): rather use/pass chartimages as prop.
-            // images will be used for the afterDraw plugin inside the chart.
-            images.push(`${dataPoint.weather[0].icon}-hourly.png`);
+            this.images.push(`${dataPoint.weather[0].icon}-hourly.png`);
         });
         const temperatureDataset = {
             label: this.$t("temperature"),
             backgroundColor: "#f87979",
             data: temperatures.slice(0, 10),
-            img: images.slice(0, 10),
         };
+        this.images = this.images.slice(0, 10);
         return {
             labels: hours.slice(0, 10),
             datasets: [temperatureDataset],

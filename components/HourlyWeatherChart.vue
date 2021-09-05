@@ -17,6 +17,7 @@ export default class HourlyWeatherChart extends Mixins(
 ) {
     @Prop({ type: Object, default: null }) chartData!: Chart.ChartData;
     @Prop({ type: Object, default: null }) chartOptions!: Chart.ChartOptions;
+    @Prop({ type: Array, default: [] }) chartTickImages!: string[];
 
     mounted() {
         // NOTE(pierre): chartjs 2.X seems not to have decent types for plugins
@@ -32,7 +33,7 @@ export default class HourlyWeatherChart extends Mixins(
                 xAxis.ticks.forEach((_: any, index: number) => {
                     const x = xAxis.getPixelForTick(index);
                     const image = new Image();
-                    image.src = chart.data.datasets[0].img[index];
+                    image.src = this.chartTickImages[index];
                     /* NOTE(pierre): I have no clue why and how this places the
                      * images onto the correct position (even when resizing the
                      * chart). Figured this out by testing and checking
