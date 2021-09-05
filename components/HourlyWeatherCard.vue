@@ -15,13 +15,13 @@ settings?
 <script lang="ts">
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+// type and interface imports
+import { Chart } from "@types/chart.js";
+import { WeatherResponse } from "~/types/Weather";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
 import TestChart from "~/components/TestChart.vue";
-// type and interface imports
-import { WeatherResponse } from "~/types/Weather";
-import "chart.js";
 
 @Component({
     name: "HourlyWeatherCard",
