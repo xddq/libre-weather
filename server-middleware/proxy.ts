@@ -3,7 +3,7 @@ import axios from "axios";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
-import { GeolocationResponse } from "~/types/Weather";
+import { GeolocationResponse } from "~/types/weather";
 
 const app = express();
 // avoids cors by setting allow origin *

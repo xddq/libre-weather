@@ -226,7 +226,7 @@
                     "
                     @click="$emit('toggle-hourly')"
                 >
-                    hourly
+                    {{ $t("hourly") }}
                 </button>
             </div>
             <div class="weekly flex w-full justify-center items-center">
@@ -244,8 +244,9 @@
                         w-20
                         h-12
                     "
+                    @click="$emit('toggle-daily')"
                 >
-                    weekly
+                    {{ $t("daily") }}
                 </div>
             </div>
         </div>
@@ -353,7 +354,9 @@ export default class WeatherBox extends Vue {
     "time": "time",
     "temperature": "temperature",
     "humidity": "humidity",
-    "pressure": "pressure"
+    "pressure": "pressure",
+    "hourly": "hourly",
+    "daily": "daily"
   }
 }
 </i18n>

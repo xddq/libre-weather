@@ -18,7 +18,7 @@ settings?
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
 import { Chart } from "@types/chart.js";
-import { Current } from "~/types/Weather";
+import { Current } from "~/types/weather";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
@@ -52,19 +52,18 @@ export default class HourlyWeatherCard extends Vue {
         const hours = [];
         this.images = [];
         // iterates through the data once, creating relevant data sets.
-        hourlyWeather.forEach((dataPoint) => {
+        hourlyWeather.slice(0, 10).forEach((dataPoint) => {
             temperatures.push(dataPoint.temp);
             hours.push(new Date(dataPoint.dt * 1000).getHours());
-            this.images.push(`${dataPoint.weather[0].icon}-hourly.png`);
+            this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
         });
         const temperatureDataset = {
             label: this.$t("temperature"),
             backgroundColor: "#f87979",
-            data: temperatures.slice(0, 10),
+            data: temperatures,
         };
-        this.images = this.images.slice(0, 10);
         return {
-            labels: hours.slice(0, 10),
+            labels: hours,
             datasets: [temperatureDataset],
         };
     }

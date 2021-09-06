@@ -42,11 +42,16 @@
         <weather-box
             :weather-data="weatherData"
             @toggle-hourly="toggleHourly"
+            @toggle-daily="toggleDaily"
         />
         <hourly-weather-card
             v-if="hourly"
             :weather-data="hourlyWeather"
         ></hourly-weather-card>
+        <daily-weather-card
+            v-if="daily"
+            :weather-data="dailyWeather"
+        ></daily-weather-card>
     </div>
 </template>
 
@@ -68,15 +73,23 @@ export default class LandingPage extends Vue {
     weatherData: WeatherResponse | null = null;
     // determines whether the hourly data will be displayed
     hourly: boolean = false;
+    // determines whether the daily data will be displayed
+    daily: boolean = false;
 
     toggleHourly() {
-        console.log("hourly before: ", this.hourly);
         this.hourly = !this.hourly;
-        console.log("hourly after: ", this.hourly);
+    }
+
+    toggleDaily() {
+        return (this.daily = !this.daily);
     }
 
     get hourlyWeather() {
         return this.weatherData?.hourly ?? [];
+    }
+
+    get dailyWeather() {
+        return this.weatherData?.daily ?? [];
     }
 
     async fetchApi() {
