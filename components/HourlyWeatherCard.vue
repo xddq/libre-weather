@@ -19,6 +19,7 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
 import { Chart } from "@types/chart.js";
 import { Current } from "~/types/weather";
+import { ChartColors } from "~/types/color";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
@@ -54,13 +55,15 @@ export default class HourlyWeatherCard extends Vue {
         // iterates through the data once, creating relevant data sets.
         hourlyWeather.slice(0, 10).forEach((dataPoint) => {
             temperatures.push(dataPoint.temp);
+            // MAYBE(pierre): get 12 hour format (Xam, Ypm, etc..) depending on locale.
             hours.push(new Date(dataPoint.dt * 1000).getHours());
             this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
         });
         const temperatureDataset = {
             label: this.$t("temperature"),
-            backgroundColor: "#f87979",
+            borderColor: ChartColors.defaultColor,
             data: temperatures,
+            fill: false,
         };
         return {
             labels: hours,
@@ -79,6 +82,26 @@ export default class HourlyWeatherCard extends Vue {
                 text: this.$t("hourlyData"),
                 padding: 35,
             },
+            scales: {
+                yAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: this.$t("yAxesLabel"),
+                            padding: 2,
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: this.$t("xAxesLabel"),
+                            padding: 2,
+                        },
+                    },
+                ],
+            },
             // NOTE(pierre): just some testing. this syntax works.
             // scales: {
             //     yAxes: [
@@ -91,28 +114,21 @@ export default class HourlyWeatherCard extends Vue {
             //             },
             //         },
             //     ],
-            //     xAxes: [
-            //         {
-            //             ticks: {
-            //                 // Include a dollar sign in the ticks
-            //                 callback(value, index, values) {
-            //                     return "$" + value;
-            //                 },
-            //                 // beginAtZero: true,
-            //             },
-            //         },
-            //     ],
-            // },
+            // }
         };
     }
 }
+// TODO(pierre): adapt i18n to don't display units. rather display units based
+// on config.
 </script>
 
 <i18n>
 {
   "en": {
     "hourlyData": "hourly weather data",
-    "temperature": "temperature"
+    "temperature": "temperature",
+    "yAxesLabel": "temperature in °C",
+    "xAxesLabel": "current hour"
   }
 }
 </i18n>

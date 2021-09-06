@@ -9,8 +9,9 @@
  * @description Colors for data which will be plotted into a chart.
  * Use hex values for colors.
  */
-export enum chartColors {
+export enum ChartColors {
     highTemperature = "#df6a42",
     fillColorHighAndLow = "#fdcd58",
     lowTemperature = "#4e40f8",
+    defaultColor = "#ef9200",
 }

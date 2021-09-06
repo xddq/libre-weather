@@ -18,7 +18,7 @@ import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
 import { Chart } from "@types/chart.js";
 import { Daily } from "~/types/weather";
-import { chartColors } from "~/types/color";
+import { ChartColors } from "~/types/color";
 // component imports
 import DailyWeatherChart from "~/components/DailyWeatherChart.vue";
 
@@ -51,19 +51,31 @@ export default class DailyWeatherCard extends Vue {
         dailyWeather.slice(0, 7).forEach((dataPoint) => {
             minTemperatures.push(dataPoint.temp.min);
             maxTemperatures.push(dataPoint.temp.max);
-            days.push(new Date(dataPoint.dt * 1000).getUTCDate());
+            days.push(
+                new Date(dataPoint.dt * 1000).toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                })
+            );
             this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
         });
+        /*
+         * NOTE(pierre): Labels will be filtered out on purpose for our
+         * datasets. See legend.labels.filter in the chartOptions.
+         * TODO(pierre): Create a temperature set for the "values in between" as
+         * deep copy and remove filtering. I think this is the only way to get
+         * decent labels for our chart.
+         */
         const minTemperaturesDataset: Chart.ChartDataSets = {
             label: this.$t("minTemperatures"),
-            borderColor: chartColors.lowTemperature,
+            borderColor: ChartColors.lowTemperature,
             data: minTemperatures,
             fill: false,
         };
         const maxTemperaturesDataset: Chart.ChartDataSets = {
             label: this.$t("maxTemperatures"),
-            borderColor: chartColors.highTemperature,
-            backgroundColor: chartColors.fillColorHighAndLow,
+            borderColor: ChartColors.highTemperature,
+            backgroundColor: ChartColors.fillColorHighAndLow,
             data: maxTemperatures,
             fill: 0,
         };
@@ -97,15 +109,38 @@ export default class DailyWeatherCard extends Vue {
                 text: this.$t("dailyData"),
                 padding: 35,
             },
+            scales: {
+                yAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: this.$t("yAxesLabel"),
+                            padding: 2,
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: this.$t("xAxesLabel"),
+                            padding: 2,
+                        },
+                    },
+                ],
+            },
         };
     }
 }
+// TODO(pierre): adapt i18n to don't display units. rather display units based
+// on config.
 </script>
-
 <i18n>
 {
   "en": {
     "dailyData": "daily weather data",
+    "yAxesLabel": "temperature in °C",
+    "xAxesLabel": "date in DD.MM",
     "minTemperatures": "lowest temperature",
     "maxTemperatures": "highest temperature"
   }

@@ -2,18 +2,18 @@
 // function imports
 import { Component, Prop } from "nuxt-property-decorator";
 import { Mixins } from "vue-property-decorator";
-import { Bar, mixins } from "vue-chartjs";
+import { Line, mixins } from "vue-chartjs";
 // component imports
 // type and interface imports
 import { Chart } from "chart.js";
 
 @Component({
-    extends: Bar, // this is important to add the functionality to your component
+    extends: Line, // this is important to add the functionality to your component
     mixins: [mixins.reactiveProp],
 })
 export default class HourlyWeatherChart extends Mixins(
     mixins.reactiveProp,
-    Bar
+    Line
 ) {
     /**
      * @description Data for the chart.js object. Contains the temperatures and
