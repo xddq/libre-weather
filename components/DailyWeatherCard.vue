@@ -54,16 +54,20 @@ export default class DailyWeatherCard extends Vue {
             days.push(new Date(dataPoint.dt * 1000).getUTCDate());
             this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
         });
-        const minTemperaturesDataset = {
+        const minTemperaturesDataset: Chart.ChartDataSets = {
             label: this.$t("minTemperatures"),
-            backgroundColor: chartColors.lowTemperature,
+            borderColor: chartColors.lowTemperature,
             data: minTemperatures,
+            fill: false,
         };
-        const maxTemperaturesDataset = {
+        const maxTemperaturesDataset: Chart.ChartDataSets = {
             label: this.$t("maxTemperatures"),
-            backgroundColor: chartColors.highTemperature,
+            borderColor: chartColors.highTemperature,
+            backgroundColor: chartColors.fillColorHighAndLow,
             data: maxTemperatures,
+            fill: 0,
         };
+
         return {
             labels: days,
             datasets: [minTemperaturesDataset, maxTemperaturesDataset],
@@ -73,6 +77,18 @@ export default class DailyWeatherCard extends Vue {
     get chartOptions(): Chart.ChartOptions {
         return {
             legend: {
+                labels: {
+                    // filter labels for this graph. If we would pass label: "",
+                    // or dont define it, it would still be displayed with "" or
+                    // undefined.
+                    filter(_: Chart.ChartLegendItem, __) {
+                        return false;
+                        // only show 2nd dataset in legend (legendItem -> _)
+                        // return !legendItem.text.includes("temperature");
+                    },
+                    // NOTE(pierre): could adapt label config. src:
+                    // https://github.com/chartjs/Chart.js/issues/9339
+                },
                 position: "bottom",
             },
             title: {

@@ -11,6 +11,6 @@
  */
 export enum chartColors {
     highTemperature = "#df6a42",
-    fillColorHighAndLow = "#dbb453",
-    lowTemperature = "#688592",
+    fillColorHighAndLow = "#fdcd58",
+    lowTemperature = "#4e40f8",
 }

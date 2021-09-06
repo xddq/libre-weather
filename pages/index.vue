@@ -77,11 +77,13 @@ export default class LandingPage extends Vue {
     daily: boolean = false;
 
     toggleHourly() {
+        this.daily = false;
         this.hourly = !this.hourly;
     }
 
     toggleDaily() {
-        return (this.daily = !this.daily);
+        this.hourly = false;
+        this.daily = !this.daily;
     }
 
     get hourlyWeather() {
