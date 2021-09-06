@@ -62,7 +62,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherCard from "~/components/HourlyWeatherCard.vue";
 // type and interface imports
-import { WeatherResponse } from "~/types/Weather";
+import { WeatherResponse } from "~/types/weather";
 
 @Component({
     name: "LandingPage",
@@ -100,6 +100,7 @@ export default class LandingPage extends Vue {
             const result = await this.$axios.get("/api/weather", params);
             this.weatherData = result.data;
         } catch (e) {
+            // TODO(pierre): display error as toast
             console.log("got an error calling weather api.");
         }
     }
