@@ -61,12 +61,13 @@ import { Component, Vue } from "nuxt-property-decorator";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherCard from "~/components/HourlyWeatherCard.vue";
+import DailyWeatherCard from "~/components/DailyWeatherCard.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/weather";
 
 @Component({
     name: "LandingPage",
-    components: { WeatherBox, HourlyWeatherCard },
+    components: { WeatherBox, HourlyWeatherCard, DailyWeatherCard },
 })
 export default class LandingPage extends Vue {
     city: string = "";

@@ -52,7 +52,7 @@ export default class HourlyWeatherChart extends Mixins(
                      */
                     ctx.drawImage(
                         image,
-                        x - xAxis._startPixel + 22,
+                        x - xAxis._startPixel + 32,
                         yAxis.top - 40
                     );
                 });
