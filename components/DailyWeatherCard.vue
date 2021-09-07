@@ -16,7 +16,7 @@
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
-import { Chart } from "@types/chart.js";
+import { Chart } from "chart.js";
 import { Daily } from "~/types/weather";
 import { ChartColors } from "~/types/color";
 // component imports
@@ -43,9 +43,9 @@ export default class DailyWeatherCard extends Vue {
             return {};
         }
         const dailyWeather = this.weatherData;
-        const minTemperatures = [];
-        const maxTemperatures = [];
-        const days = [];
+        const minTemperatures: number[] = [];
+        const maxTemperatures: number[] = [];
+        const days: string[] = [];
         this.images = [];
         // iterates through the data once, creating relevant data sets.
         dailyWeather.slice(0, 7).forEach((dataPoint) => {
@@ -67,13 +67,13 @@ export default class DailyWeatherCard extends Vue {
          * decent labels for our chart.
          */
         const minTemperaturesDataset: Chart.ChartDataSets = {
-            label: this.$t("minTemperatures"),
+            label: this.ensureString(this.$t("minTemperatures")),
             borderColor: ChartColors.lowTemperature,
             data: minTemperatures,
             fill: false,
         };
         const maxTemperaturesDataset: Chart.ChartDataSets = {
-            label: this.$t("maxTemperatures"),
+            label: this.ensureString(this.$t("maxTemperatures")),
             borderColor: ChartColors.highTemperature,
             backgroundColor: ChartColors.fillColorHighAndLow,
             data: maxTemperatures,
@@ -84,6 +84,15 @@ export default class DailyWeatherCard extends Vue {
             labels: days,
             datasets: [minTemperaturesDataset, maxTemperaturesDataset],
         };
+    }
+
+    /**
+     * @description Ensures that a string is returned from given input. Used because
+     * this.$t returns TranslateResult which could be an Object.
+     * TODO(pierre): create util for that and reuse.
+     */
+    ensureString(input: any): string {
+        return typeof input === "string" ? input : "";
     }
 
     get chartOptions(): Chart.ChartOptions {
@@ -106,7 +115,7 @@ export default class DailyWeatherCard extends Vue {
             title: {
                 display: true,
                 position: "top",
-                text: this.$t("dailyData"),
+                text: this.ensureString(this.$t("dailyData")),
                 padding: 35,
             },
             scales: {
@@ -114,7 +123,9 @@ export default class DailyWeatherCard extends Vue {
                     {
                         scaleLabel: {
                             display: true,
-                            labelString: this.$t("yAxesLabel"),
+                            labelString: this.ensureString(
+                                this.$t("yAxesLabel")
+                            ),
                             padding: 2,
                         },
                     },
@@ -123,7 +134,9 @@ export default class DailyWeatherCard extends Vue {
                     {
                         scaleLabel: {
                             display: true,
-                            labelString: this.$t("xAxesLabel"),
+                            labelString: this.ensureString(
+                                this.$t("xAxesLabel")
+                            ),
                             padding: 2,
                         },
                     },

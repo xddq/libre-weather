@@ -258,7 +258,7 @@
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // component imports
 // type and interface imports
-import { WeatherResponse } from "~/types/Weather";
+import { WeatherResponse } from "~/types/weather";
 
 @Component({ name: "WeatherBox", components: {} })
 export default class WeatherBox extends Vue {

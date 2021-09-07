@@ -17,7 +17,7 @@ settings?
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
-import { Chart } from "@types/chart.js";
+import { Chart } from "chart.js";
 import { Current } from "~/types/weather";
 import { ChartColors } from "~/types/color";
 // component imports
@@ -49,8 +49,8 @@ export default class HourlyWeatherCard extends Vue {
             return {};
         }
         const hourlyWeather = this.weatherData;
-        const temperatures = [];
-        const hours = [];
+        const temperatures: number[] = [];
+        const hours: number[] = [];
         this.images = [];
         // iterates through the data once, creating relevant data sets.
         hourlyWeather.slice(0, 10).forEach((dataPoint) => {
@@ -60,7 +60,7 @@ export default class HourlyWeatherCard extends Vue {
             this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
         });
         const temperatureDataset = {
-            label: this.$t("temperature"),
+            label: this.ensureString(this.$t("temperature")),
             borderColor: ChartColors.defaultColor,
             data: temperatures,
             fill: false,
@@ -71,6 +71,15 @@ export default class HourlyWeatherCard extends Vue {
         };
     }
 
+    /**
+     * @description Ensures that a string is returned from given input. Used because
+     * this.$t returns TranslateResult which could be an Object.
+     * TODO(pierre): create util for that and reuse.
+     */
+    ensureString(input: any): string {
+        return typeof input === "string" ? input : "";
+    }
+
     get chartOptions(): Chart.ChartOptions {
         return {
             legend: {
@@ -79,7 +88,7 @@ export default class HourlyWeatherCard extends Vue {
             title: {
                 display: true,
                 position: "top",
-                text: this.$t("hourlyData"),
+                text: this.ensureString(this.$t("hourlyData")),
                 padding: 35,
             },
             scales: {
@@ -87,7 +96,9 @@ export default class HourlyWeatherCard extends Vue {
                     {
                         scaleLabel: {
                             display: true,
-                            labelString: this.$t("yAxesLabel"),
+                            labelString: this.ensureString(
+                                this.$t("yAxesLabel")
+                            ),
                             padding: 2,
                         },
                     },
@@ -96,7 +107,9 @@ export default class HourlyWeatherCard extends Vue {
                     {
                         scaleLabel: {
                             display: true,
-                            labelString: this.$t("xAxesLabel"),
+                            labelString: this.ensureString(
+                                this.$t("xAxesLabel")
+                            ),
                             padding: 2,
                         },
                     },
