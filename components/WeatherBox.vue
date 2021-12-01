@@ -1,4 +1,9 @@
 <template>
+    <!--
+    @author Pierre Dahmani
+    @created 02.09.2021
+    @file Displays weather data for a given location.
+-->
     <div class="flex flex-col text-xl w-full px-2 pt-2">
         <div
             v-if="weatherDataNotNull"
