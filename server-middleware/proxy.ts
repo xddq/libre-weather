@@ -41,16 +41,16 @@ app.all("/weather", async (req, res) => {
         });
     }
 
-    // prefers user specified api key, if available
-    const apiKey =
-        req?.query?.appid === undefined ? process.env.API_KEY : req.query.appid;
+    // only uses the hosters api key if the user did not specify his own.
+    if (req.query?.appId === "") {
+        req.query.appId = process.env.API_KEY;
+    }
 
     // query lat long, and then weather data for given city
     try {
         // gets geodata by city and state
-        const geoQueryParams = Object.assign({ appid: apiKey }, req?.query);
         const geoResult = await axios.get(process.env.API_GEOLOCATION_URL, {
-            params: geoQueryParams,
+            params: req.query,
         });
 
         // gets all weather data for given lat long
@@ -62,11 +62,12 @@ app.all("/weather", async (req, res) => {
                 "Unexpected api response. Resulting data is not an array."
             );
         }
+        console.log("hello no error world!");
 
         // picks first result as best match
         // TODO(pierre): get units from settins.
         const weatherQueryParams = {
-            appid: apiKey,
+            appId: req.query.appId,
             lat: geoData[0].lat,
             lon: geoData[0].lon,
             units: "metric",
@@ -81,10 +82,8 @@ app.all("/weather", async (req, res) => {
                     .query.q}`
             );
         }
-        // what is passed for non us weather data calls
-        // city, country
-        // what is passed for us weather data calls
-        // city, state, country
+
+        // appends the given city, state, and country to the api response.
         // src: https://openweathermap.org/api/geocoding-api#direct_name
         const locationParams: string[] = req.query.q
             .split(",")
