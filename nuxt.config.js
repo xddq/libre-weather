@@ -1,4 +1,10 @@
 export default {
+    // options for the server that will be hosted
+    server: {
+        port: process.env.HOST_PORT ?? 3000,
+        host: process.env.HOST_ADDRESS ?? "localhost",
+        timing: false,
+    },
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: "Libre Weather",
