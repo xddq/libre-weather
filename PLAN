@@ -1,10 +1,24 @@
-- add translations to all text (default to english) i18n!
-- build box for hourly and weekly data (figma -> hourly data left and weekly
-  data right. back button on right if one of them is open)
-- rate limit calls
-
-
 TODOS:
+- try merge requests workflow although I am working alone until first release.
+  See how it will play out. --> Use feature branch workflock for all other
+todos.
+- add .env.example (did lose my .env since I switched workstation)
+- adapt ui to have two (or three if US is checked) inputs to query the weather
+  data. see coordinates by location name here: https://openweathermap.org/api/geocoding-api
+- bugfix: if hourly or daily is active and then clicked again, nothing should
+  happen. (currently closes daily/weekly tab)
+- buy license for the data protection law stuff and add these pages to my self
+  hosted instance. (I guess don't add the data protection stuff to this repo,
+since it is customized to me and the server I host it on).
+- credit openweathermap data, add their license.
+- release repo
+
+
+LATER
+- include donations page with different cryptos!
+
+MAYBE:
+- add matomo to check data while keeping users privacy.
 - display hourly and weekly data
 - add onclick and only display hourly or weekly at once.
 - add nuxt pwa module
@@ -12,13 +26,7 @@ TODOS:
 - add default metric to german stuff
 - think about settings page (STATE=US (0/1), own api_KEY string, locale =
   en( maybe soon more),
-
-
-decisions:
-- use i18n in sfc components to possibly reuse components.
-
-
-maybe:
+- rate limit api calls
 - add locale depending on settings
 - how to cut/overflow hidden/ make only one row for location?
 - use icons from openweathermap api
@@ -26,11 +34,3 @@ maybe:
 - get decent icons XD?
 - display weekly with 7x daily, maybe with onclick on data display the detail
   widget/box?
-
-TODOS:
-- upload to own server!
-- add pop (rain risk) to box and charts!
-- include donations page with different cryptos!
-- credit openweathermap data ! license etc..!
-https://openweathermap.org/faq
-
