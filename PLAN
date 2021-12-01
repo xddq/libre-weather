@@ -11,26 +11,29 @@ https://openweathermap.org/api/geocoding-api - DONE
   hosted instance. (I guess don't add the data protection stuff to this repo,
 since it is customized to me and the server I host it on). - DONE!.
 - config the nuxt pwa module to display an icon and hide the task bar when the
-  app was "downloaded"
-- release repo
+  app was "downloaded" - DONE
+- add possibility to use own api key - DONE
+- write readme
+- wait for adaption of imprint and gdpr stuff to english is done, then include
+  it and release repo.
 
 
 
 MAYBE:
-- add matomo to check data while keeping users privacy.
-- display hourly and weekly data
-- add onclick and only display hourly or weekly at once.
-- add translanslations (en only) and case for [loading, initial]
-- add default metric to german stuff
-- think about settings page (STATE=US (0/1), own api_KEY string, locale =
-  en( maybe soon more),
-- rate limit api calls
-- add locale depending on settings
-- how to cut/overflow hidden/ make only one row for location?
-- use icons from openweathermap api
-- create component for row?
-- get decent icons XD?
-- display weekly with 7x daily, maybe with onclick on data display the detail
-  widget/box?
-- include donations page with different cryptos! (this should be a different project to
-  be fair)
+- Add capability to display the current weather box 1) for every day (whole
+  week) and 2) for every hour (next 8 hours)
+- STYLING:
+    - possibly: find someone who wants to design the app so I can apply the design
+    - otherwise: put some hours into styling the app. perhaps just use a
+      finished component library that looks somewhat decent.
+        - when styling write the app cleaner with some components.
+- add cookies to cache searched result, and api keys on the client (I guess this
+  requires cookie consent. So it should be a "somewhat bigger" task.)
+- add matomo to check data while keeping users privacy(I guess this also
+  requires cookie consent. Either use a publicly available tool or code own).
+- add a settings page which will adapt the units from eu to us.
+- add localizations for different languages (i18n plugin is already set up)
+- rate limit api calls when the user is using the hosters api key (only if flag
+  is enabled, don't rate limit the user if it is the hoster himself)
+- include donations page with different cryptos (I have to do this one day
+  anyway, so probably check for solutions or just code it for this project)
