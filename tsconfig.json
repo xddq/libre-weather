@@ -32,8 +32,17 @@
             "@types/node",
             "@nuxtjs/axios",
             "@nuxtjs/i18n",
+            "vue-toastification/nuxt",
             "@types/chart.js"
         ]
+    },
+    // volar for vue2
+    // src: https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features#using
+    "vueCompilerOptions": {
+        "experimentalCompatMode": 2,
+        "experimentalTemplateCompilerOptions": {
+            "compatConfig": { "MODE": 2 } // optional
+        }
     },
     // never lint node_modules, .nuxt and dist folder
     "exclude": ["node_modules", ".nuxt", "dist"]

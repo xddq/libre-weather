@@ -1,12 +1,11 @@
 TODOS:
 - try merge requests workflow although I am working alone until first release.
   See how it will play out. --> Use feature branch workflock for all other
-todos.
-- add .env.example (did lose my .env since I switched workstation)
+todos. - DONE
+- add .env.example (did lose my .env since I switched workstation) - DONE
 - adapt ui to have two (or three if US is checked) inputs to query the weather
-  data. see coordinates by location name here: https://openweathermap.org/api/geocoding-api
-- bugfix: if hourly or daily is active and then clicked again, nothing should
-  happen. (currently closes daily/weekly tab)
+  data. see coordinates by location name here:
+https://openweathermap.org/api/geocoding-api - DONE
 - buy license for the data protection law stuff and add these pages to my self
   hosted instance. (I guess don't add the data protection stuff to this repo,
 since it is customized to me and the server I host it on).

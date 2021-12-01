@@ -46,7 +46,12 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ["@nuxtjs/axios", "@nuxtjs/i18n"],
+    modules: [
+        "@nuxtjs/axios",
+        "@nuxtjs/i18n",
+        // https://github.com/Maronato/vue-toastification/tree/main#installation
+        "vue-toastification/nuxt",
+    ],
 
     // internationalization: https://i18n.nuxtjs.org/
     i18n: {
