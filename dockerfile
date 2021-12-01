@@ -1,5 +1,5 @@
 # debian docker image for node 14 LTS
-FROM node:14-alpine
+FROM node:14-alpine as node-builder
 LABEL maintainer="Pierre Dahmani <git@pierrefhapp.dev>"
 ENV TZ=Europe/Berlin
 # installs dependencies for cypress
@@ -9,5 +9,9 @@ ENV TZ=Europe/Berlin
 WORKDIR /srv/node
 # copy app source over
 COPY . .
+# installs packages and builds the app
+RUN npm ci && npm run build
+# starts prod server
 CMD [ "npm", "run", "start" ]
+# CMD ["tail", "-f", "/dev/null"]
 

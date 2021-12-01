@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    libre-weather:
+        build:
+            context: .
+        restart: unless-stopped
+        container_name: weather-server
+
+    nginx:
+

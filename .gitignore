@@ -91,3 +91,5 @@ sw.*
 
 # compiled pandoc pdf
 vim-main-compile.pdf
+# ignore my deployment conf
+docker-compose.yml
