@@ -13,8 +13,10 @@
 2. Hosting your own instance:
     - clone this repo onto your server `git clone
       git@github.com:Pierrefha/libre-weather.git`
-    - take the example compose `cp docker-compose.yml.example
-      docker-compose.yml`
+    - copy the example .env file and fill in the required fields. `cp
+      .env.example .env`
+    - take the example compose and just copy it over `cp
+      docker-compose.yml.example docker-compose.yml`
     - spin up the container docker-compose up -d
     - browse your servers ip (lets say it has the ip 222.222.222.222) and then
       browse to http://222.222.222.222:3000
