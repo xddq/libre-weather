@@ -14,7 +14,6 @@ import { Mixins } from "vue-property-decorator";
 import { Line, mixins } from "vue-chartjs";
 // component imports
 // type and interface imports
-import { Chart } from "chart.js";
 
 @Component({
     extends: Line, // this is important to add the functionality to your component

@@ -35,6 +35,13 @@ export default {
         },
     ],
 
+    // Enables calling .env stuff from the client. Only put non secret stuff in
+    // here! src: https://nuxtjs.org/docs/directory-structure/nuxt-config#runtimeconfig
+    publicRuntimeConfig: {
+        GdprUrl: process.env.GDPR_URL || "",
+        ImprintUrl: process.env.IMPRINT_URL || "",
+    },
+
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
         // https://go.nuxtjs.dev/typescript
