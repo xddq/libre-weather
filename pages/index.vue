@@ -35,6 +35,31 @@
                 type="text"
                 placeholder="enter country code here"
             />
+            <div>Do you want to you your own openweatherdata api key?</div>
+            <input
+                v-model="useOwnApiKey"
+                class="
+                    text-center
+                    border border-solid
+                    w-8/12
+                    border-grey-300
+                    rounded-xl
+                "
+                type="checkbox"
+            />
+            <input
+                v-if="useOwnApiKey"
+                v-model="usersOwnApiKey"
+                class="
+                    text-center
+                    border border-solid
+                    w-8/12
+                    border-grey-300
+                    rounded-xl
+                "
+                type="text"
+                placeholder="enter your api key here"
+            />
             <div>Is your location in the united states?</div>
             <input
                 v-model="searchInUS"
@@ -111,6 +136,7 @@ export default class LandingPage extends Vue {
     city: string = "";
     stateCode: string = "";
     countryCode: string = "";
+    usersOwnApiKey: string = "";
     weatherData: WeatherResponse | null = null;
     // determines whether the hourly data will be displayed
     hourly: boolean = false;
@@ -118,6 +144,8 @@ export default class LandingPage extends Vue {
     daily: boolean = false;
     // determines whether the we will check for weather inside the united states
     searchInUS: boolean = false;
+    // determines whether the user will use his own api key
+    useOwnApiKey: boolean = false;
 
     toggleHourly() {
         this.daily = false;
@@ -184,7 +212,9 @@ export default class LandingPage extends Vue {
                 const locationData = this.searchInUS
                     ? `${this.city},${this.stateCode},${this.countryCode}`
                     : `${this.city},${this.countryCode}`;
-                const params = { params: { q: locationData } };
+                const params = {
+                    params: { q: locationData, appId: this.usersOwnApiKey },
+                };
                 const result = await this.$axios.get("/api/weather", params);
                 this.weatherData = result.data;
             } catch (e) {
