@@ -6,10 +6,10 @@ todos. - DONE
 - adapt ui to have two (or three if US is checked) inputs to query the weather
   data. see coordinates by location name here:
 https://openweathermap.org/api/geocoding-api - DONE
+- credit openweathermap data, add their license. - DONE
 - buy license for the data protection law stuff and add these pages to my self
   hosted instance. (I guess don't add the data protection stuff to this repo,
-since it is customized to me and the server I host it on).
-- credit openweathermap data, add their license.
+since it is customized to me and the server I host it on). - IN PROGRESS.
 - release repo
 
 
