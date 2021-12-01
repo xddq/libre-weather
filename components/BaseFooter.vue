@@ -4,13 +4,13 @@
     @created: 18.08.2021
     @file: Default footer for every page
 -->
-    <footer class="flex justify-center items-center w-full mt-8 rounded-xl">
+    <footer class="flex justify-center items-center w-full mt-8 rounded-xl
+space-x-10">
         <a href="https://www.github.com/pierrefha/libre-weather">{{
             $t("sourceCode")
         }}</a>
         <a :href="$config.GdprUrl">{{ $t("gdpr") }}</a>
         <a :href="$config.ImprintUrl">{{ $t("imprint") }}</a>
-{{ link }}
     </footer>
 </template>
 
@@ -21,9 +21,6 @@ import { Component, Vue } from "nuxt-property-decorator";
     name: "BaseFooter",
 })
 export default class BaseFooter extends Vue {
-    get link() {
-        return process.env;
-    }
 }
 </script>
 
