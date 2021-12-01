@@ -17,7 +17,6 @@ settings?
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // type and interface imports
-import { Chart } from "chart.js";
 import { Current } from "~/types/weather";
 import { ChartColors } from "~/types/color";
 // component imports

@@ -21,7 +21,44 @@
                     rounded-xl
                 "
                 type="text"
-                placeholder="enter your city here"
+                placeholder="enter city here"
+            />
+            <input
+                v-model="countryCode"
+                class="
+                    text-center
+                    border border-solid
+                    w-8/12
+                    border-grey-300
+                    rounded-xl
+                "
+                type="text"
+                placeholder="enter country code here"
+            />
+            <div>Is your location in the united states?</div>
+            <input
+                v-model="searchInUS"
+                class="
+                    text-center
+                    border border-solid
+                    w-8/12
+                    border-grey-300
+                    rounded-xl
+                "
+                type="checkbox"
+            />
+            <input
+                v-if="searchInUS"
+                v-model="stateCode"
+                class="
+                    text-center
+                    border border-solid
+                    w-8/12
+                    border-grey-300
+                    rounded-xl
+                "
+                type="text"
+                placeholder="enter state code here"
             />
             <button
                 class="
@@ -56,6 +93,7 @@
 </template>
 
 <script lang="ts">
+import { TYPE, POSITION } from "vue-toastification";
 // function imports
 import { Component, Vue } from "nuxt-property-decorator";
 // component imports
@@ -71,11 +109,15 @@ import { WeatherResponse } from "~/types/weather";
 })
 export default class LandingPage extends Vue {
     city: string = "";
+    stateCode: string = "";
+    countryCode: string = "";
     weatherData: WeatherResponse | null = null;
     // determines whether the hourly data will be displayed
     hourly: boolean = false;
     // determines whether the daily data will be displayed
     daily: boolean = false;
+    // determines whether the we will check for weather inside the united states
+    searchInUS: boolean = false;
 
     toggleHourly() {
         this.daily = false;
@@ -95,14 +137,61 @@ export default class LandingPage extends Vue {
         return this.weatherData?.daily ?? [];
     }
 
+    /**
+     * @description Validates all user input boxes. MAYBE(Pierre): Validate
+     * against iso standard. For now just validate against empty string.
+     */
+    validateInput() {
+        if (this.city === "") {
+            this.$toast(
+                "Please insert a correct city name!\nExamples: Berlin,London,Paris",
+                {
+                    type: TYPE.WARNING,
+                    position: POSITION.BOTTOM_CENTER,
+                    bodyClassName: "text-center",
+                }
+            );
+            return false;
+        }
+        if (this.countryCode === "") {
+            this.$toast(
+                "Please insert a correct country code in ISO 3166-1 format!\nExamples: DE,FR,US",
+                {
+                    type: TYPE.WARNING,
+                    position: POSITION.BOTTOM_CENTER,
+                    bodyClassName: "text-center",
+                }
+            );
+            return false;
+        }
+        if (this.searchInUS && this.stateCode === "") {
+            this.$toast(
+                "Please insert a correct state code in ISO 3166-1 format!\nExamples: US-NY,US-MA,US-TX",
+                {
+                    type: TYPE.WARNING,
+                    position: POSITION.BOTTOM_CENTER,
+                    bodyClassName: "text-center",
+                }
+            );
+            return false;
+        }
+        return true;
+    }
+
     async fetchApi() {
-        try {
-            const params = { params: { q: this.city } };
-            const result = await this.$axios.get("/api/weather", params);
-            this.weatherData = result.data;
-        } catch (e) {
-            // TODO(pierre): display error as toast
-            console.log("got an error calling weather api.");
+        if (this.validateInput()) {
+            try {
+                const locationData = this.searchInUS
+                    ? `${this.city},${this.stateCode},${this.countryCode}`
+                    : `${this.city},${this.countryCode}`;
+                const params = { params: { q: locationData } };
+                const result = await this.$axios.get("/api/weather", params);
+                this.weatherData = result.data;
+            } catch (e) {
+                this.$toast("Got an error calling the weather api.");
+                // TODO(pierre): remove before release. Keep for debug.
+                console.error(e);
+            }
         }
     }
 }
