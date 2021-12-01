@@ -32,7 +32,6 @@
             "@types/node",
             "@nuxtjs/axios",
             "@nuxtjs/i18n",
-            "vue-toastification/nuxt",
             "@types/chart.js"
         ]
     },

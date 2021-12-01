@@ -1,7 +1,7 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: "homepage",
+        title: "Libre Weather",
         htmlAttrs: {
             lang: "en",
         },
@@ -11,10 +11,73 @@ export default {
                 name: "viewport",
                 content: "width=device-width, initial-scale=1",
             },
-            { hid: "description", name: "description", content: "" },
+            // most important meta tags
+            {
+                hid: "title",
+                name: "title",
+                content: process.env.META_TITLE ?? "Weather App",
+            },
+            {
+                hid: "description",
+                name: "description",
+                content: process.env.META_DESCRIPTION ?? "Weather App",
+            },
+            // twitter specific meta tags
+            {
+                hid: "twitter:card",
+                name: "twitter:card",
+                content: "summary_large_image",
+            },
+            {
+                hid: "twitter:url",
+                name: "twitter:url",
+                content: process.env.BASE_URL,
+            },
+            {
+                hid: "twitter:title",
+                name: "twitter:title",
+                content: process.env.META_TITLE ?? "Weather App",
+            },
+            {
+                hid: "twitter:description",
+                name: "twitter:description",
+                content: process.env.META_TITLE ?? "Weather App",
+            },
+            {
+                hid: "twitter:image",
+                name: "twitter:image",
+                content: process.env.META_IMAGE,
+            },
+            // open graph (facebook) specific meta tags
+            {
+                hid: "og:type",
+                name: "og:type",
+                content: "website",
+            },
+            {
+                hid: "og:url",
+                name: "og:url",
+                content: process.env.BASE_URL,
+            },
+            {
+                hid: "og:title",
+                name: "og:title",
+                content: process.env.META_TITLE ?? "Weather App",
+            },
+            {
+                hid: "og:description",
+                name: "og:description",
+                content: process.env.META_TITLE ?? "Weather App",
+            },
+            {
+                hid: "og:image",
+                name: "og:image",
+                content: process.env.META_IMAGE,
+            },
+
             { name: "format-detection", content: "telephone=no" },
         ],
-        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+        link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -83,9 +146,16 @@ export default {
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
-    // pwa config
-    // src: https://pwa.nuxtjs.org/manifest/#default-options
+    // pwa config src: https://pwa.nuxtjs.org/
     pwa: {
+        meta: {
+            appleStatusBarStyle: "black",
+            nativeUI: true,
+        },
+        icon: {
+            fileName: "icon.png",
+            sizes: [64, 120, 144, 152, 192, 384, 512],
+        },
         manifest: {
             name: "Libre Weather",
             short_name: "Libre Weather",
