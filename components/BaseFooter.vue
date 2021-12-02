@@ -6,7 +6,7 @@
 -->
     <footer class="flex justify-center items-center w-full mt-8 rounded-xl
 space-x-10">
-        <a href="https://www.github.com/pierrefha/libre-weather">{{
+        <a href="https://www.github.com/xddq/libre-weather">{{
             $t("sourceCode")
         }}</a>
         <a :href="$config.GdprUrl">{{ $t("gdpr") }}</a>
