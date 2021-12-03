@@ -1,8 +1,8 @@
 # Libre Weather
 
 - Libre Weather is an open source weather pwa(progressive web app).
-- You can either use the publicly hosted instance on [my
-  server](https://www.weather.pd-dev.xyz) or simply host your own instance.
+- You can either use the publicly hosted instance on
+  [here](https://www.weather.pd-dev.xyz) or simply host your own instance.
 - Once you browse the app with your mobile phone you can just download it and
   have it behave like a normal app.
 
@@ -22,6 +22,15 @@
       browse to http://192.168.0.1:3000
     - done
 
+# Notes
+- If you have feedback/suggestions just create an issue.
+- If you want to design the frontend, I am happy to code your design. Again,
+  just create an issue and we will get in touch.
+- There is a document called "PLAN" which states the features I will perhaps
+  add. If you want to help with any of them, let me know. Again, can just create
+an issue.
+- Releases use [semantic versioning](https://semver.org/)
+
 # Technologies
 - frontend framework: nuxt
 - language: typescript, vue
@@ -35,14 +44,6 @@
 - formatting: prettier
 - styling: tailwindcss
 - build/deploy: docker / docker-compose file
-
-# Notes
-- If you have feedback/suggestions just create an issue.
-- If you want to design the frontend, I am happy to code your design. Again,
-  just create an issue and we will get in touch.
-- There is a document called "PLAN" which states the features I will perhaps
-  add. If you want to help with any of them, let me know. Again, can just create
-an issue.
 
 # Licenses
 
