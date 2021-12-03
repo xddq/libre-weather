@@ -4,9 +4,6 @@
  * Created: 06.09.2021
  * Description: Chart that displays our daily weather data. Following the
  * vue-chart.js docu we are not allowed to use any <template> stuff here.
- * MAYBE(pierre): maybe make a generic chart component (instead of hourly and
- * daily weather) with slots or pass
- * functions.
  */
 // function imports
 import { Component, Prop } from "nuxt-property-decorator";

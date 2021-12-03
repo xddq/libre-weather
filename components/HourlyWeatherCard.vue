@@ -73,7 +73,6 @@ export default class HourlyWeatherCard extends Vue {
     /**
      * @description Ensures that a string is returned from given input. Used because
      * this.$t returns TranslateResult which could be an Object.
-     * TODO(pierre): create util for that and reuse.
      */
     ensureString(input: any): string {
         return typeof input === "string" ? input : "";

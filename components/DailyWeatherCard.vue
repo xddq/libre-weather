@@ -61,9 +61,6 @@ export default class DailyWeatherCard extends Vue {
         /*
          * NOTE(pierre): Labels will be filtered out on purpose for our
          * datasets. See legend.labels.filter in the chartOptions.
-         * TODO(pierre): Create a temperature set for the "values in between" as
-         * deep copy and remove filtering. I think this is the only way to get
-         * decent labels for our chart.
          */
         const minTemperaturesDataset: Chart.ChartDataSets = {
             label: this.ensureString(this.$t("minTemperatures")),
@@ -88,7 +85,6 @@ export default class DailyWeatherCard extends Vue {
     /**
      * @description Ensures that a string is returned from given input. Used because
      * this.$t returns TranslateResult which could be an Object.
-     * TODO(pierre): create util for that and reuse.
      */
     ensureString(input: any): string {
         return typeof input === "string" ? input : "";
@@ -103,11 +99,7 @@ export default class DailyWeatherCard extends Vue {
                     // undefined.
                     filter(_: Chart.ChartLegendItem, __) {
                         return false;
-                        // only show 2nd dataset in legend (legendItem -> _)
-                        // return !legendItem.text.includes("temperature");
                     },
-                    // NOTE(pierre): could adapt label config. src:
-                    // https://github.com/chartjs/Chart.js/issues/9339
                 },
                 position: "bottom",
             },
@@ -144,7 +136,7 @@ export default class DailyWeatherCard extends Vue {
         };
     }
 }
-// TODO(pierre): adapt i18n to don't display units. rather display units based
+// MAYBE(pierre): Adapt i18n to don't display units. rather display units based
 // on config.
 </script>
 <i18n>

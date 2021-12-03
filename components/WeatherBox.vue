@@ -16,8 +16,6 @@
                 shadow-md
             "
         >
-            <!-- TODO(pierre): how to make this icon square?
-                maybe check this: https://carlanderson.xyz/how-to-keep-your-flexbox-square/ -->
             <div class="basic-current-infos flex w-full">
                 <div
                     class="

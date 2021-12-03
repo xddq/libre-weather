@@ -5,9 +5,6 @@
  * Typed using app.quicktype.io and the api responses.
  */
 
-// TODO(pierre): disable eslint errors here. Don't bother how machine thinks,
-// bother how I think (which is top down) about type defs.
-
 /**
  * @description Geolocation response types
  */
