@@ -12,7 +12,7 @@
     - done
 2. Hosting your own instance:
     - clone this repo onto your server `git clone
-      git@github.com:Pierrefha/libre-weather.git`
+      git@github.com:xddq/libre-weather.git`
     - copy the example .env file and fill in the required fields. `cp
       .env.example .env`
     - take the example compose and just copy it over `cp
@@ -24,9 +24,11 @@
 
 # Notes
 - If you have feedback/suggestions just create an issue.
+- If you want to design the frontend, I am happy to code your design. Again,
+  just create an issue and we will get in touch.
 - There is a document called "PLAN" which states the features I will perhaps
-  add. If you want to help with any of them, let me know (again, can just create
-an Issue).
+  add. If you want to help with any of them, let me know. Again, can just create
+an issue.
 
 # Licenses
 

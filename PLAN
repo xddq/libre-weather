@@ -1,6 +1,8 @@
 MAYBE:
 - add cookies to cache searched result, and api keys on the client (I guess this
   requires cookie consent. So it should be a "somewhat bigger" task.)
+- store the last queried date in cookies and query the weather if date is > 30 /
+  60min.
 - STYLING:
     - possibly: find someone who wants to design the app so I can apply the design
     - otherwise: put some hours into styling the app. perhaps just use a
@@ -10,6 +12,9 @@ MAYBE:
   week) and 2) for every hour (next 8 hours)
 - add matomo to check data while keeping users privacy(I guess this also
   requires cookie consent. Either use a publicly available tool or code own).
+- create popup which asks to "download the app" based on the usage time (maybe
+  once after some minutes, or after some days) can probably only do this after
+having matomo
 - add a settings page which will adapt the units from eu to us.
 - add localizations for different languages (i18n plugin is already set up)
 - rate limit api calls when the user is using the hosters api key (only if flag
