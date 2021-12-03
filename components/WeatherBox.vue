@@ -7,36 +7,14 @@
     <div class="flex flex-col text-xl w-full px-2 pt-2">
         <div
             v-if="weatherDataNotNull"
-            class="
-                weather-widget
-                flex flex-col
-                w-full
-                bg-blue-200
-                rounded-xl
-                shadow-md
-            "
+            class="weather-widget flex flex-col w-full bg-blue-200 rounded-xl shadow-md"
         >
             <div class="basic-current-infos flex w-full">
                 <div
-                    class="
-                        icon-description
-                        flex flex-col
-                        w-1/3
-                        h-auto
-                        items-center
-                        justify-center
-                    "
+                    class="icon-description flex flex-col w-1/3 h-auto items-center justify-center"
                 >
                     <div
-                        class="
-                            icon
-                            flex
-                            w-full
-                            items-center
-                            justify-center
-                            text-center
-                            h-2/3
-                        "
+                        class="icon flex w-full items-center justify-center text-center h-2/3"
                     >
                         <img
                             :src="icon"
@@ -45,69 +23,29 @@
                         />
                     </div>
                     <div
-                        class="
-                            description
-                            flex
-                            justify-center
-                            items-center
-                            w-full
-                            text-center
-                            overflow-hidden
-                            h-1/3
-                        "
+                        class="description flex justify-center items-center w-full text-center overflow-hidden h-1/3"
                     >
                         {{ description }}
                     </div>
                 </div>
                 <div
-                    class="
-                        text-info-weather
-                        flex flex-col
-                        justif-center
-                        items-center
-                        w-2/3
-                        h-auto
-                    "
+                    class="text-info-weather flex flex-col justif-center items-center w-2/3 h-auto"
                 >
                     <div class="flex time-and-location w-full">
                         <div
-                            class="
-                                time
-                                flex
-                                w-full
-                                justify-center
-                                items-center
-                                overflow-hidden
-                                pt-1
-                                pl-1
-                            "
+                            class="time flex w-full justify-center items-center overflow-hidden pt-1 pl-1"
                         >
                             {{ location }}
                         </div>
                         <div
-                            class="
-                                city-and-state
-                                flex
-                                justify-center
-                                items-center
-                                text-center
-                                pt-1
-                                pr-1
-                            "
+                            class="city-and-state flex justify-center items-center text-center pt-1 pr-1"
                         >
                             {{ date }}
                         </div>
                     </div>
                     <div class="row flex w-full justify-center items-center">
                         <div
-                            class="
-                                description
-                                flex
-                                justify-left
-                                items-center
-                                w-1/2
-                                pl-1
-                            "
+                            class="description flex justify-left items-center w-1/2 pl-1"
                         >
                             {{ $t("temperature") }}
                         </div>
@@ -119,14 +57,7 @@
                     </div>
                     <div class="row flex w-full justify-center items-center">
                         <div
-                            class="
-                                description
-                                flex
-                                justify-left
-                                items-center
-                                w-1/2
-                                pl-1
-                            "
+                            class="description flex justify-left items-center w-1/2 pl-1"
                         >
                             {{ $t("time") }}
                         </div>
@@ -138,14 +69,7 @@
                     </div>
                     <div class="row flex w-full justify-center items-center">
                         <div
-                            class="
-                                description
-                                flex
-                                justify-left
-                                items-center
-                                w-1/2
-                                pl-1
-                            "
+                            class="description flex justify-left items-center w-1/2 pl-1"
                         >
                             {{ $t("wind") }}
                         </div>
@@ -157,14 +81,7 @@
                     </div>
                     <div class="row flex w-full justify-center items-center">
                         <div
-                            class="
-                                description
-                                flex
-                                justify-left
-                                items-center
-                                w-1/2
-                                pl-1
-                            "
+                            class="description flex justify-left items-center w-1/2 pl-1"
                         >
                             {{ $t("humidity") }}
                         </div>
@@ -176,14 +93,7 @@
                     </div>
                     <div class="row flex w-full justify-center items-center">
                         <div
-                            class="
-                                description
-                                flex
-                                justify-left
-                                items-center
-                                w-1/2
-                                pl-1
-                            "
+                            class="description flex justify-left items-center w-1/2 pl-1"
                         >
                             {{ $t("pressure") }}
                         </div>
@@ -198,30 +108,11 @@
         </div>
         <div
             v-if="mainCard && weatherDataNotNull"
-            class="
-                hourly-and-weekly
-                flex
-                items-center
-                justify-center
-                w-full
-                mt-2
-            "
+            class="hourly-and-weekly flex items-center justify-center w-full mt-2"
         >
             <div class="hourly flex justify-center items-center w-full">
                 <button
-                    class="
-                        hourly
-                        text
-                        flex
-                        bg-blue-400
-                        hover:bg-blue-600
-                        rounded-xl
-                        items-center
-                        justify-center
-                        text-center
-                        w-20
-                        h-12
-                    "
+                    class="hourly text flex bg-blue-400 hover:bg-blue-600 rounded-xl items-center justify-center text-center w-20 h-12"
                     @click="$emit('toggle-hourly')"
                 >
                     {{ $t("hourly") }}
@@ -229,19 +120,7 @@
             </div>
             <div class="weekly flex w-full justify-center items-center">
                 <div
-                    class="
-                        weekly
-                        text
-                        flex
-                        bg-blue-400
-                        hover:bg-blue-600
-                        rounded-xl
-                        items-center
-                        justify-center
-                        text-center
-                        w-20
-                        h-12
-                    "
+                    class="weekly text flex bg-blue-400 hover:bg-blue-600 rounded-xl items-center justify-center text-center w-20 h-12"
                     @click="$emit('toggle-daily')"
                 >
                     {{ $t("daily") }}

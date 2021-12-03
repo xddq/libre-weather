@@ -1,100 +1,48 @@
 <template>
     <div>
         <div
-            class="
-                flex flex-col
-                items-center
-                justify-center
-                w-full
-                mt-4
-                location-input
-                space-x-2
-            "
+            class="flex flex-col items-center justify-center w-full mt-4 location-input space-x-2"
         >
             <input
                 v-model="city"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="text"
                 placeholder="enter city here"
             />
             <input
                 v-model="countryCode"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="text"
                 placeholder="enter country code here"
             />
             <div>Do you want to you your own openweatherdata api key?</div>
             <input
                 v-model="useOwnApiKey"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="checkbox"
             />
             <input
                 v-if="useOwnApiKey"
                 v-model="usersOwnApiKey"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="text"
                 placeholder="enter your api key here"
             />
             <div>Is your location in the united states?</div>
             <input
                 v-model="searchInUS"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="checkbox"
             />
             <input
                 v-if="searchInUS"
                 v-model="stateCode"
-                class="
-                    text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
-                    rounded-xl
-                "
+                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
                 type="text"
                 placeholder="enter state code here"
             />
             <button
-                class="
-                    send-location-request
-                    items-center
-                    border border-solid
-                    bg-gray-100
-                    rounded-xl
-                    w-40
-                    mt-2
-                "
+                class="send-location-request items-center border border-solid bg-gray-100 rounded-xl w-40 mt-2"
                 @click="fetchApi"
             >
                 Get weather!
