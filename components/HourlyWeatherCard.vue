@@ -2,8 +2,7 @@
     <!--
     @author Pierre Dahmani
     @created 04.09.2021
-    @file Displays weatherboxes for the next x(default 10) hours (TODO(pierre): set X in
-settings?
+    @file Displays weatherboxes for the next x(default 10)
 -->
     <hourly-weather-chart
         class="w-full px-2 flex justify-center items-center"
@@ -22,11 +21,10 @@ import { ChartColors } from "~/types/color";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
-import TestChart from "~/components/TestChart.vue";
 
 @Component({
     name: "HourlyWeatherCard",
-    components: { WeatherBox, HourlyWeatherChart, TestChart },
+    components: { WeatherBox, HourlyWeatherChart },
 })
 export default class HourlyWeatherCard extends Vue {
     /**

@@ -1,6 +1,6 @@
 <template>
     <!-- @file Default layout for every page -->
-    <div>
+    <div class="flex flex-col justify-center items-center max-w-5xl mx-auto">
         <BaseHeader />
         <Nuxt />
         <BaseFooter />

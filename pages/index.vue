@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="flex flex-col items-center justify-center w-full mt-4 location-input space-x-2"
+            class="flex flex-col items-center justify-center w-full mt-4 location-input space-x-2 space-y-4"
         >
             <input
                 v-model="city"
@@ -15,32 +15,40 @@
                 type="text"
                 placeholder="enter country code here"
             />
-            <div>Do you want to you your own openweatherdata api key?</div>
-            <input
-                v-model="useOwnApiKey"
-                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
-                type="checkbox"
-            />
-            <input
-                v-if="useOwnApiKey"
-                v-model="usersOwnApiKey"
-                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
-                type="text"
-                placeholder="enter your api key here"
-            />
-            <div>Is your location in the united states?</div>
-            <input
-                v-model="searchInUS"
-                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
-                type="checkbox"
-            />
-            <input
-                v-if="searchInUS"
-                v-model="stateCode"
-                class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
-                type="text"
-                placeholder="enter state code here"
-            />
+            <div
+                class="conditional-input flex flex-col justify-center items-center"
+            >
+                <div>Do you want to use your own openweatherdata api key?</div>
+                <input
+                    v-model="useOwnApiKey"
+                    class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
+                    type="checkbox"
+                />
+                <input
+                    v-if="useOwnApiKey"
+                    v-model="usersOwnApiKey"
+                    class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
+                    type="text"
+                    placeholder="enter your api key here"
+                />
+            </div>
+            <div
+                class="conditional-input flex flex-col justify-center items-center"
+            >
+                <div>Is your location in the united states?</div>
+                <input
+                    v-model="searchInUS"
+                    class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
+                    type="checkbox"
+                />
+                <input
+                    v-if="searchInUS"
+                    v-model="stateCode"
+                    class="text-center border border-solid w-8/12 border-grey-300 rounded-xl"
+                    type="text"
+                    placeholder="enter state code here"
+                />
+            </div>
             <button
                 class="send-location-request items-center border border-solid bg-gray-100 rounded-xl w-40 mt-2"
                 @click="fetchApi"
