@@ -22,6 +22,20 @@
       browse to http://192.168.0.1:3000
     - done
 
+# Technologies
+- frontend framework: nuxt
+- language: typescript, vue
+- pwa: nuxt pwa module
+- charts: chartjs
+- proxy that allows using your own api key: express middleware hooked into nuxt
+  connect instance.
+- i18n: added the i18n plugin for nuxt (currently only having english
+  translations)
+- linting: eslint
+- formatting: prettier
+- styling: tailwindcss
+- build/deploy: docker / docker-compose file
+
 # Notes
 - If you have feedback/suggestions just create an issue.
 - If you want to design the frontend, I am happy to code your design. Again,

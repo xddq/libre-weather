@@ -130,7 +130,7 @@ export default class LandingPage extends Vue {
             this.$toast(
                 "Please insert a correct city name!\nExamples: Berlin,London,Paris",
                 {
-                    type: TYPE.WARNING,
+                    type: TYPE.ERROR,
                     position: POSITION.BOTTOM_CENTER,
                     bodyClassName: "text-center",
                 }
@@ -141,7 +141,7 @@ export default class LandingPage extends Vue {
             this.$toast(
                 "Please insert a correct country code in ISO 3166-1 format!\nExamples: DE,FR,US",
                 {
-                    type: TYPE.WARNING,
+                    type: TYPE.ERROR,
                     position: POSITION.BOTTOM_CENTER,
                     bodyClassName: "text-center",
                 }
@@ -152,7 +152,7 @@ export default class LandingPage extends Vue {
             this.$toast(
                 "Please insert a correct state code in ISO 3166-1 format!\nExamples: US-NY,US-MA,US-TX",
                 {
-                    type: TYPE.WARNING,
+                    type: TYPE.ERROR,
                     position: POSITION.BOTTOM_CENTER,
                     bodyClassName: "text-center",
                 }
@@ -175,8 +175,6 @@ export default class LandingPage extends Vue {
                 this.weatherData = result.data;
             } catch (e) {
                 this.$toast("Got an error calling the weather api.");
-                // TODO(pierre): remove before release. Keep for debug.
-                console.error(e);
             }
         }
     }
