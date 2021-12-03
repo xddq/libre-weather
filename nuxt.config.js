@@ -83,7 +83,10 @@ export default {
 
             { name: "format-detection", content: "telephone=no" },
         ],
-        link: [{ rel: "icon", type: "image/png", href: "/icon.png" }],
+        link: [
+            { rel: "icon", type: "image/png", href: "icon.png" },
+            { rel: "shortcurt-icon", type: "image/png", href: "icon.png" },
+        ],
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -113,12 +116,12 @@ export default {
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
+        // https://pwa.nuxtjs.org/setup
+        "@nuxtjs/pwa",
         // https://go.nuxtjs.dev/typescript
         "@nuxt/typescript-build",
         // https://go.nuxtjs.dev/tailwindcss
         "@nuxtjs/tailwindcss",
-        // https://pwa.nuxtjs.org/setup
-        "@nuxtjs/pwa",
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -160,12 +163,17 @@ export default {
         },
         icon: {
             fileName: "icon.png",
-            sizes: [64, 120, 144, 152, 192, 384, 512],
         },
         manifest: {
             name: "Libre Weather",
             short_name: "Libre Weather",
             lang: "en",
+            description: process.env.META_DESCRIPTION ?? "Libre Weather",
+            // src: https://github.com/nuxt-community/pwa-module/issues/94
+            crossorigin: "use-credentials",
+            // src: same as web.dev page from google. Check their application
+            // tab in chrome.
+            start_url: "/",
         },
     },
 };

@@ -13,9 +13,10 @@ since it is customized to me and the server I host it on). - DONE!.
 - config the nuxt pwa module to display an icon and hide the task bar when the
   app was "downloaded" - DONE
 - add possibility to use own api key - DONE
-- write readme
-- wait for adaption of imprint and gdpr stuff to english is done, then include
-  it and release repo.
+- write readme - DONE
+- wait for adaption of imprint and gdpr stuff to english is done - DONE
+- fix pwa issue -IN PROGRESS
+- release repo.
 
 
 
