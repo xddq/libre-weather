@@ -1,34 +1,13 @@
-TODOS:
-- try merge requests workflow although I am working alone until first release.
-  See how it will play out. --> Use feature branch workflock for all other
-todos. - DONE
-- add .env.example (did lose my .env since I switched workstation) - DONE
-- adapt ui to have two (or three if US is checked) inputs to query the weather
-  data. see coordinates by location name here:
-https://openweathermap.org/api/geocoding-api - DONE
-- credit openweathermap data, add their license. - DONE
-- buy license for the data protection law stuff and add these pages to my self
-  hosted instance. (I guess don't add the data protection stuff to this repo,
-since it is customized to me and the server I host it on). - DONE!.
-- config the nuxt pwa module to display an icon and hide the task bar when the
-  app was "downloaded" - DONE
-- add possibility to use own api key - DONE
-- write readme
-- wait for adaption of imprint and gdpr stuff to english is done, then include
-  it and release repo.
-
-
-
 MAYBE:
-- Add capability to display the current weather box 1) for every day (whole
-  week) and 2) for every hour (next 8 hours)
+- add cookies to cache searched result, and api keys on the client (I guess this
+  requires cookie consent. So it should be a "somewhat bigger" task.)
 - STYLING:
     - possibly: find someone who wants to design the app so I can apply the design
     - otherwise: put some hours into styling the app. perhaps just use a
       finished component library that looks somewhat decent.
         - when styling write the app cleaner with some components.
-- add cookies to cache searched result, and api keys on the client (I guess this
-  requires cookie consent. So it should be a "somewhat bigger" task.)
+- Add capability to display the current weather box 1) for every day (whole
+  week) and 2) for every hour (next 8 hours)
 - add matomo to check data while keeping users privacy(I guess this also
   requires cookie consent. Either use a publicly available tool or code own).
 - add a settings page which will adapt the units from eu to us.
