@@ -18,9 +18,15 @@
     - take the example compose and just copy it over `cp
       docker-compose.yml.example docker-compose.yml`
     - spin up the container docker-compose up -d
-    - browse your servers ip (lets say it has the ip 222.222.222.222) and then
-      browse to http://222.222.222.222:3000
+    - browse your servers ip (lets say it has the ip 192.168.0.1) and then
+      browse to http://192.168.0.1:3000
     - done
+
+# Notes
+- If you have feedback/suggestions just create an issue.
+- There is a document called "PLAN" which states the features I will perhaps
+  add. If you want to help with any of them, let me know (again, can just create
+an Issue).
 
 # Licenses
 
