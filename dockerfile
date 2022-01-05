@@ -1,5 +1,5 @@
 # debian docker image for node 14 LTS
-FROM node:14-alpine as node-builder
+FROM node:16-alpine as node-builder
 LABEL maintainer="Pierre Dahmani <git@pierrefhapp.dev>"
 ENV TZ=Europe/Berlin
 # installs dependencies for cypress

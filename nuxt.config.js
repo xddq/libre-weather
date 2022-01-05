@@ -114,7 +114,7 @@ export default {
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [{ src: "~/plugins/bye.ts", mode: "client" }],
+    // plugins: [{ src: "~/plugins/bye.ts", mode: "client" }],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -155,7 +155,7 @@ export default {
     modules: [
         "@nuxtjs/axios",
         // https://www.npmjs.com/package/cookie-universal-nuxt
-        "cookie-universal-nuxt",
+        // "cookie-universal-nuxt",
         "@nuxtjs/i18n",
         // https://github.com/Maronato/vue-toastification/tree/main#installation
         "vue-toastification/nuxt",
