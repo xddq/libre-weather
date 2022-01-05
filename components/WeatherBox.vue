@@ -4,17 +4,48 @@
     @created 02.09.2021
     @file Displays weather data for a given location.
 -->
-    <div class="flex flex-col text-xl w-full px-2 pt-2">
+    <div class="flex flex-col text-xl text-white w-full">
         <div
             v-if="weatherDataNotNull"
-            class="weather-widget flex flex-col w-full bg-blue-200 rounded-xl shadow-md"
+            class="
+                weather-widget
+                flex flex-col
+                w-full
+                bg-blue-400
+                rounded-xl
+                shadow-md
+                p-2
+            "
         >
-            <div class="basic-current-infos flex w-full">
+            <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center w-2/3">
+                    {{ location | capitalize }}
+                </div>
+                <div class="flex items-center justify-center w-1/3">
+                    {{ time }}
+                </div>
+            </div>
+            <div class="image-and-main-infos-beside flex w-full">
                 <div
-                    class="icon-description flex flex-col w-1/3 h-auto items-center justify-center"
+                    class="
+                        icon-description
+                        flex flex-col
+                        w-1/3
+                        h-32
+                        items-center
+                        justify-center
+                    "
                 >
                     <div
-                        class="icon flex w-full items-center justify-center text-center h-2/3"
+                        class="
+                            icon
+                            flex
+                            w-full
+                            items-center
+                            justify-center
+                            text-center
+                            h-2/3
+                        "
                     >
                         <img
                             :src="icon"
@@ -23,107 +54,64 @@
                         />
                     </div>
                     <div
-                        class="description flex justify-center items-center w-full text-center overflow-hidden h-1/3"
+                        class="
+                            description
+                            flex
+                            justify-center
+                            items-center
+                            w-full
+                            text-center
+                            overflow-hidden
+                            h-1/3
+                        "
                     >
                         {{ description }}
                     </div>
                 </div>
                 <div
-                    class="text-info-weather flex flex-col justif-center items-center w-2/3 h-auto"
+                    class="
+                        text-info-weather
+                        flex flex-col
+                        justif-center
+                        items-center
+                        w-2/3
+                        h-auto
+                        mt-2
+                    "
                 >
-                    <div class="flex time-and-location w-full">
-                        <div
-                            class="time flex w-full justify-center items-center overflow-hidden pt-1 pl-1"
-                        >
-                            {{ location }}
-                        </div>
-                        <div
-                            class="city-and-state flex justify-center items-center text-center pt-1 pr-1"
-                        >
-                            {{ date }}
-                        </div>
-                    </div>
                     <div class="row flex w-full justify-center items-center">
-                        <div
-                            class="description flex justify-left items-center w-1/2 pl-1"
-                        >
-                            {{ $t("temperature") }}
-                        </div>
-                        <div
-                            class="value flex justify-center items-center w-1/2"
-                        >
+                        <Thermometer class="text-white fill-current mr-2" />
+                        <div class="text-center">
                             {{ temperature }} {{ temperatureUnit }}
                         </div>
                     </div>
                     <div class="row flex w-full justify-center items-center">
-                        <div
-                            class="description flex justify-left items-center w-1/2 pl-1"
-                        >
-                            {{ $t("time") }}
-                        </div>
-                        <div
-                            class="value flex justify-center items-center w-1/2"
-                        >
-                            {{ time }}
-                        </div>
-                    </div>
-                    <div class="row flex w-full justify-center items-center">
-                        <div
-                            class="description flex justify-left items-center w-1/2 pl-1"
-                        >
-                            {{ $t("wind") }}
-                        </div>
-                        <div
-                            class="value flex justify-center items-center w-1/2"
-                        >
+                        <Wind class="text-gray-200 stroke-2 mr-2" />
+                        <div class="text-center">
                             {{ windSpeed }} {{ windUnit }}
                         </div>
                     </div>
                     <div class="row flex w-full justify-center items-center">
+                        <!-- can style svgs by using text and background color. -->
+                        <!-- for more: https://www.geeksforgeeks.org/how-to-change-svg-icon-colors-with-tailwind-css/ -->
+                        <Umbrella class="text-blue-600 stroke-2 mr-2" />
                         <div
-                            class="description flex justify-left items-center w-1/2 pl-1"
+                            class="
+                                text-blue-600
+                                value
+                                flex
+                                justify-center
+                                items-center
+                            "
                         >
-                            {{ $t("humidity") }}
-                        </div>
-                        <div
-                            class="value flex justify-center items-center w-1/2"
-                        >
-                            {{ humidity }} {{ humidityUnit }}
+                            {{ riskOfRain }}%
                         </div>
                     </div>
                     <div class="row flex w-full justify-center items-center">
-                        <div
-                            class="description flex justify-left items-center w-1/2 pl-1"
-                        >
-                            {{ $t("pressure") }}
-                        </div>
-                        <div
-                            class="value flex justify-center items-center w-1/2"
-                        >
+                        <div class="text-center">
                             {{ pressure }} {{ pressureUnit }}
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div
-            v-if="mainCard && weatherDataNotNull"
-            class="hourly-and-weekly flex items-center justify-center w-full mt-2"
-        >
-            <div class="hourly flex justify-center items-center w-full">
-                <button
-                    class="hourly text flex bg-blue-400 hover:bg-blue-600 rounded-xl items-center justify-center text-center w-20 h-12"
-                    @click="$emit('toggle-hourly')"
-                >
-                    {{ $t("hourly") }}
-                </button>
-            </div>
-            <div class="weekly flex w-full justify-center items-center">
-                <div
-                    class="weekly text flex bg-blue-400 hover:bg-blue-600 rounded-xl items-center justify-center text-center w-20 h-12"
-                    @click="$emit('toggle-daily')"
-                >
-                    {{ $t("daily") }}
                 </div>
             </div>
         </div>
@@ -134,10 +122,28 @@
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // component imports
+import Umbrella from "~/components/icon/Umbrella.vue";
+import Wind from "~/components/icon/Wind.vue";
+import Thermometer from "~/components/icon/Thermometer.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/weather";
 
-@Component({ name: "WeatherBox", components: {} })
+@Component({
+    name: "WeatherBox",
+    components: {
+        Umbrella,
+        Wind,
+        Thermometer,
+    },
+    // https://stackoverflow.com/questions/52823903/how-do-i-define-a-filter-in-a-vue-class-component
+    filters: {
+        capitalize(value: any) {
+            if (!value) return "";
+            value = value.toString();
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+    },
+})
 export default class WeatherBox extends Vue {
     /**
      * @description All required weather data which is used to display the
@@ -191,7 +197,12 @@ export default class WeatherBox extends Vue {
     }
 
     get temperature() {
-        return this.weatherData?.current.feels_like ?? "";
+        const temperatue = this.weatherData?.current.feels_like;
+        if (temperatue === undefined) {
+            return "";
+        }
+        // only allow XX.Y displayed for degree/fahrenheit
+        return temperatue.toFixed(1);
     }
 
     get temperatureUnit() {
@@ -199,19 +210,22 @@ export default class WeatherBox extends Vue {
     }
 
     get windSpeed() {
-        return this.weatherData?.current.wind_speed ?? "";
+        // default is speed in m/s.
+        // src: https://openweathermap.org/api/hourly-forecast
+        const speed = this.weatherData?.current.wind_speed;
+        if (speed === undefined) {
+            return "";
+        }
+        // return speed in km/h
+        return (speed * 3.6).toString().slice(0, 3);
     }
 
     get windUnit() {
-        return "m/s";
+        return "km/h";
     }
 
-    get humidity() {
-        return this.weatherData?.current.humidity ?? "";
-    }
-
-    get humidityUnit() {
-        return "%";
+    get riskOfRain() {
+        return this.weatherData?.hourly[0].pop ?? "";
     }
 
     get pressure() {

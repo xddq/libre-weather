@@ -5,7 +5,7 @@
     @file: Default header for every page
 -->
     <div class="flex justify-center items-center w-full mt-8">
-        <h1>Libre Weather</h1>
+        <h1 class="font-semibold text-xl">Libre Weather</h1>
     </div>
 </template>
 

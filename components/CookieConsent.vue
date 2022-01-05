@@ -23,18 +23,24 @@ layout to get global cookie consent.
         <div
             class="
                 modal
-                flex
+                flex flex-col
+                md:flex-row
                 items-center
                 justify-center
                 bg-white
-                w-8/12
-                h-1/5
+                md:w-8/12 md:h-1/5
                 rounded-2xl
                 p-4
             "
         >
             <div
-                class="cookie-icon flex items-center justify-center w-1/12 mr-2"
+                class="
+                    cookie-icon
+                    flex
+                    items-center
+                    justify-center
+                    md:w-1/12 md:mr-2
+                "
             >
                 <icon-cookie class="w-32 h-32 icon"></icon-cookie>
             </div>
@@ -44,7 +50,7 @@ layout to get global cookie consent.
                     items-center
                     justify-center
                     explanation
-                    w-7/12
+                    md:w-7/12
                     mr-10
                 "
             >
@@ -58,7 +64,16 @@ layout to get global cookie consent.
                     >
                 </div>
             </div>
-            <div class="actions flex flex-col justify-center items-center">
+            <div
+                class="
+                    actions
+                    flex flex-col
+                    pt-4
+                    md:pt-0
+                    justify-center
+                    items-center
+                "
+            >
                 <base-button @click="accept">Got it</base-button>
             </div>
         </div>
@@ -70,7 +85,7 @@ layout to get global cookie consent.
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 // component imports
 import BaseButton from "@/components/base/button.vue";
-import IconCookie from "@/components/icon/cookie.vue";
+import IconCookie from "@/components/icon/Cookie.vue";
 // type and interface imports
 
 @Component({ name: "CookieConsent", components: { BaseButton, IconCookie } })
