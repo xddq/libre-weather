@@ -225,7 +225,12 @@ export default class WeatherBox extends Vue {
     }
 
     get riskOfRain() {
-        return this.weatherData?.hourly[0].pop ?? "";
+        const riskOfRain = this.weatherData?.hourly[0]?.pop;
+        if (riskOfRain === undefined) {
+            return "";
+        }
+        // risk of rain will be given in 0.XX from api. transform to XX%
+        return riskOfRain * 100;
     }
 
     get pressure() {
