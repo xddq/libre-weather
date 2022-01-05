@@ -146,7 +146,6 @@ import HourlyWeatherCard from "~/components/HourlyWeatherCard.vue";
 import DailyWeatherCard from "~/components/DailyWeatherCard.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/weather";
-import TestComponent from "../components/TestComponent.vue";
 
 @Component({
     name: "LandingPage",
@@ -154,7 +153,6 @@ import TestComponent from "../components/TestComponent.vue";
         WeatherBox,
         HourlyWeatherCard,
         DailyWeatherCard,
-        TestComponent,
     },
 })
 export default class LandingPage extends Vue {
@@ -243,6 +241,7 @@ export default class LandingPage extends Vue {
                 const result = await this.$axios.get("/api/weather", params);
                 this.weatherData = result.data;
             } catch (e) {
+                console.log(e);
                 this.$toast("Got an error calling the weather api.");
             }
         }

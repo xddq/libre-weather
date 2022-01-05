@@ -62,8 +62,6 @@ app.all("/weather", async (req, res) => {
                 "Unexpected api response. Resulting data is not an array."
             );
         }
-        console.log("hello no error world!");
-
         // picks first result as best match
         // TODO(pierre): get units from settins.
         const weatherQueryParams = {
