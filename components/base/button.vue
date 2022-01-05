@@ -3,15 +3,14 @@
         <div
             class="
                 button
-                w-24
-                h-14
+                h-12
                 rounded-xl
                 flex
                 justify-center
                 items-center
                 text-center
             "
-            :class="[bgColor, bgColorOnHover, textColor]"
+            :class="[bgColor, bgColorOnHover, textColor, width]"
             @click="$emit('click')"
         >
             <slot></slot>
@@ -30,6 +29,7 @@ export default class Button extends Vue {
     @Prop({ default: "bg-blue-400" }) bgColor!: string;
     @Prop({ default: "hover:bg-blue-500" }) bgColorOnHover!: string;
     @Prop({ default: "text-white" }) textColor!: string;
+    @Prop({ default: "w-28" }) width!: string;
 }
 </script>
 <style scoped></style>
