@@ -1,0 +1,20 @@
+version: "3.8"
+
+# this is my actual deployment file. you will probably have to change the
+# network name for your reverse proxy.
+services:
+    libre-weather:
+        build:
+            context: .
+        restart: unless-stopped
+        ports:
+            - "3000:3000"
+        container_name: weather-server
+        networks:
+            - nginx-proxy-manager
+
+networks:
+    # name of your reverse proxy network
+    nginx-proxy-manager:
+        external: true
+        name: nginx-proxy-manager
