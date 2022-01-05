@@ -21,3 +21,4 @@ having matomo
   is enabled, don't rate limit the user if it is the hoster himself)
 - include donations page with different cryptos (I have to do this one day
   anyway, so probably check for solutions or just code it for this project)
+- add vue simple spinner (use code): https://github.com/dzwillia/vue-simple-spinner/blob/master/src/components/Spinner.vue
