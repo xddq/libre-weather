@@ -150,13 +150,9 @@ export default class WeatherBox extends Vue {
      * @description All required weather data which is used to display the
      * informations.
      */
-    // MAYBE(pierre): make this a dependent type based on the given value? I
-    // think typescript can do this, no?
-
-    // NOTE(pierre): -For now decide what to display based on given type prop.
-    // - Current is used for the main and the hourly weather box! Daily for the
-    // daily.
     @Prop() weatherData!: Current | null;
+    // gets city seperately since it is not part of the api data we receive.
+    @Prop() city!: String | null;
     @Prop({ default: WeatherBoxType.Main }) type!: WeatherBoxType;
 
     get weatherDataNotNull() {
@@ -204,7 +200,7 @@ export default class WeatherBox extends Vue {
     }
 
     get location() {
-        return this.weatherData?.city ?? "";
+        return this.city ?? "";
     }
 
     get temperature() {

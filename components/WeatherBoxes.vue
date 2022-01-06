@@ -27,6 +27,7 @@ given location.
                 v-show="displayHourly"
                 :key="`hourly-box-${index}-${hourlyWeatherData.dt}`"
                 :weather-data="item"
+                :city="city"
                 :type="hourlyType"
             />
         </template>
@@ -60,6 +61,8 @@ export default class WeatherBoxes extends Vue {
      */
     @Prop() hourlyWeatherData!: Current[] | null;
     @Prop() dailyWeatherData!: Daily[] | null;
+    // gets city seperately since it is not part of the api data we receive.
+    @Prop() city!: String | null;
     /**
      * @description Determines whether hourly forecast boxes will be displayed
      * on initial render. If this is false a button "show hourly forecast" will

@@ -5,7 +5,11 @@
             :display-loading="displayLoading"
             @evaluateSearch="evaluateSearch"
         />
-        <weather-box class="px-2 mt-2" :weather-data="currentWeather" />
+        <weather-box
+            class="px-2 mt-2"
+            :city="city"
+            :weather-data="currentWeather"
+        />
         <hourly-weather-chart
             class="mt-2"
             :weather-data="hourlyWeather"
@@ -19,6 +23,7 @@
         <lazy-weather-boxes
             class="px-2 mt-2"
             :hourly-weather-data="hourlyWeather"
+            :city="city"
             :default-display-hourly="false"
             :default-display-daily="false"
         />
@@ -68,6 +73,10 @@ export default class LandingPage extends Vue {
     toggleDaily() {
         this.hourly = false;
         this.daily = !this.daily;
+    }
+
+    get city() {
+        return this.weatherData?.city ?? null;
     }
 
     get currentWeather() {
@@ -123,10 +132,10 @@ export default class LandingPage extends Vue {
         try {
             const result = await this.$axios.get("/api/weather", params);
             this.weatherData = result.data;
-            console.log(result.data);
+            // console.log(result.data);
             return false;
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             this.$toast("Got an error calling the weather api.", {
                 type: TYPE.ERROR,
                 position: POSITION.BOTTOM_CENTER,
