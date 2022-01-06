@@ -22,7 +22,7 @@
 ## DEMO
 
 install | usage
-    --- | ---
+  --- | ---
 <img src="https://github.com/xddq/libre-weather/blob/main/static/install.gif" width="300"> | <img src="https://github.com/xddq/libre-weather/blob/main/static/usage.gif" width="300">
 
 # Notes
