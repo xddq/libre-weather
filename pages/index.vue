@@ -5,15 +5,23 @@
             :display-loading="displayLoading"
             @evaluateSearch="evaluateSearch"
         />
-        <weather-box class="px-2 mt-2" :weather-data="weatherData" />
+        <weather-box class="px-2 mt-2" :weather-data="currentWeather" />
         <hourly-weather-chart
             class="mt-2"
             :weather-data="hourlyWeather"
         ></hourly-weather-chart>
-        <daily-weather-chart
+        <!-- MAYBE(pierre): does this lazy loading/dynamic importing work? Measure it. -->
+        <!-- src: https://nuxtjs.org/docs/directory-structure/components/ -->
+        <lazy-daily-weather-chart
             class="mt-2"
             :weather-data="dailyWeather"
-        ></daily-weather-chart>
+        ></lazy-daily-weather-chart>
+        <lazy-weather-boxes
+            class="px-2 mt-2"
+            :hourly-weather-data="hourlyWeather"
+            :default-display-hourly="false"
+            :default-display-daily="false"
+        />
     </div>
 </template>
 
@@ -22,17 +30,20 @@ import { TYPE, POSITION } from "vue-toastification";
 // function imports
 import { Component, Vue } from "nuxt-property-decorator";
 // component imports
+import WeatherBoxes from "~/components/WeatherBoxes.vue";
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
 import DailyWeatherChart from "~/components/DailyWeatherChart.vue";
 import EnterLocationWidget from "~/components/EnterLocationWidget.vue";
 // type and interface imports
 import { WeatherResponse } from "~/types/weather";
+import { WeatherBoxCount } from "~/types/weather-non-api";
 
 @Component({
     name: "LandingPage",
     components: {
         WeatherBox,
+        WeatherBoxes,
         HourlyWeatherChart,
         DailyWeatherChart,
         EnterLocationWidget,
@@ -59,12 +70,32 @@ export default class LandingPage extends Vue {
         this.daily = !this.daily;
     }
 
-    get hourlyWeather() {
-        return this.weatherData?.hourly ?? [];
+    get currentWeather() {
+        const weatherData = this.weatherData?.current;
+        if (weatherData === undefined) {
+            return null;
+        }
+        // use the pop/riskOfRain/probability of precipation for the first
+        // hourly weather since we have no pop in current weather but I feel
+        // like this is still a relevant information.
+        weatherData.pop = this.hourlyWeather?.[0]?.pop;
+        return weatherData;
     }
 
+    /** The length of this array determines the amount of boxes which will be
+     * rendered for the weatherboxes component. **/
+    get hourlyWeather() {
+        // MAYBE(pierre): Could later enable setting amount of hours in config
+        // in app frontend. For now make them fixed/const.
+        return (
+            this.weatherData?.hourly.slice(0, WeatherBoxCount.Hourly) ?? null
+        );
+    }
+
+    /** The length of this array determines the amount of boxes which will be
+     * rendered for the weatherboxes component. **/
     get dailyWeather() {
-        return this.weatherData?.daily ?? [];
+        return this.weatherData?.daily.slice(0, WeatherBoxCount.Daily) ?? null;
     }
 
     /**

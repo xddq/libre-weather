@@ -1,8 +1,8 @@
 /**
  * @author Pierre Dahmani
  * @created 02.09.2021
- * @file Contains type definitions for all the weather specific data.
- * Typed using app.quicktype.io and the api responses.
+ * @file Contains type definitions for all the weather specific data from the
+ * api.  Typed using app.quicktype.io and the api responses.
  */
 
 /**
@@ -82,6 +82,7 @@ export interface WeatherResponse {
     state?: string;
 }
 
+// NOTE(pierre): Current is used for main weather box and the hourly weather box.
 export interface Current {
     dt: number;
     sunrise?: number;
@@ -99,6 +100,10 @@ export interface Current {
     wind_gust: number;
     weather: Weather[];
     pop?: number;
+    // added by our proxy
+    city: string;
+    country: string;
+    state?: string;
 }
 
 export interface Weather {
@@ -149,6 +154,10 @@ export interface Daily {
     pop: number;
     uvi: number;
     rain?: number;
+    // added by our proxy
+    city: string;
+    country: string;
+    state?: string;
 }
 
 export interface FeelsLike {

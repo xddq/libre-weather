@@ -52,11 +52,11 @@ export default class DailyWeatherChart extends Vue {
      * @description Hourly data which is used to create the dataset for the
      * child component.
      */
-    @Prop({ type: Array, default: [] }) weatherData!: Daily[];
+    @Prop({ type: Array, default: [] }) weatherData!: Daily[] | null;
 
-    displayChart: boolean = true;
+    displayChart: boolean = false;
     get haveWeatherData() {
-        return this.weatherData.length !== 0;
+        return this.weatherData !== null;
     }
 
     // images that will be passed into the weather chart. used for displaying
@@ -68,7 +68,7 @@ export default class DailyWeatherChart extends Vue {
      * 7 entries resulting in a 7 day forecast.
      */
     get chartData(): Chart.ChartData {
-        if (this.weatherData === []) {
+        if (this.weatherData === null) {
             return {};
         }
         const dailyWeather = this.weatherData;

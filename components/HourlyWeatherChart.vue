@@ -53,11 +53,11 @@ export default class HourlyWeatherChart extends Vue {
      * @description Hourly data which is used to create the dataset for the
      * child component.
      */
-    @Prop({ type: Array, default: [] }) weatherData!: Current[];
+    @Prop({ type: Array, default: [] }) weatherData!: Current[] | null;
     displayChart: boolean = true;
 
     get haveWeatherData() {
-        return this.weatherData.length !== 0;
+        return this.weatherData !== null;
     }
 
     // images that will be passed into the weather chart. used for displaying
