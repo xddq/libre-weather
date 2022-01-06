@@ -1,0 +1,33 @@
+Ideas that could be implemented:
+
+- remembering the last searched loocation via cookies. (check if this requires
+  cookies to be adapted or if this counts as functional, when implementing this
+task.)
+- add pop/probability of precipation to the chart (hourly and daily) I would say
+  at the bottom. I did this already with drawing umbrellas and the percentage
+but somehow lost it and could not find the commit again.
+- make weather boxes (the hourly and in future daily ones) swipeable instead of
+  just displaying all of them. (I would prefer self coded, but could just use
+swiper.js library.)
+- enable toggling between metric and usa units. (first step in client, second
+  step store the seconds in cookie?)
+- integrate daily weather boxes into the weather boxes component
+- create e2e tests for simple tasks (I would prefer cypress or puppeteer)
+- refetch the city every X minutes (e.g. 30?)
+- create popup which asks to "download the app" (probably combine it with
+  cookies to store the decision of the user to not annoy anyone. and display
+after some minutes and not instantly)
+- add translations for other languages (app uses i18n strings in english only
+  currently)
+- rate limit the api calls when user is not using his own openapi key (I guess
+  this should be combined with a flag in .env file if we want to rate limit)
+- set up cicd for this (I would prefer to use gitlab ci, since this is where I
+  host most of my stuff, and will PROBABLY do this task myself)
+
+
+Not reallly related, but what I should do one day:
+- figure out how to include a donations page with different cryptos (this is not
+  app specific but I want to do this for other pages anyway and it has to be
+done once.)
+- read about matomo and possibly add it while keeping users privacy just to get
+  some infos about the usage of the service. (probably again with flag in .env)

@@ -28,7 +28,8 @@ install | usage
 # Notes
 - Releases use [semantic versioning](https://semver.org/)
 - Any contribution is highly appreciated. If you want to get something done,
-  just hit me up at git@pierrefhapp.dev for now.
+  just hit me up at git@pierrefhapp.dev for now. I did prepare a small list of
+possible tasks inside the "open-ideas-tasks" file.
 
 # Technologies
 - frontend framework: nuxt, vue
