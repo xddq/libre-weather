@@ -1,15 +1,16 @@
 # Libre Weather
 
-- Libre Weather is an open source weather pwa(progressive web app).
-- You can either use the publicly hosted instance on
-  [here](https://weather.pd-dev.xyz) or simply host your own instance.
-- Once you browse the app with your mobile phone you can just download it and
-  have it behave like a normal app.
+- Libre Weather is an open source weather PWA(progressive web app).
+- It works on Android and iOS devices.
+- No tracking, no ads.
+- Can be downloaded to behave like normal app.
+- Weather data provided by the [openweathermap](https://openweathermap.org/).
+- Proxies the requests to hide you from the api provider.
+- But also allows you to use your own api key.
 
 # Quickstart
-1. Using the public instance:
-    - browse to [libre weather](https://weather.pd-dev.xyz) and use the app.
-2. Hosting your own instance:
+1. Using the public instance on [https://weather.pd-dev.xyz](https://weather.pd-dev.xyz)
+2. Hosting your own instance!
     - clone this repo onto your server `git clone
       git@github.com:xddq/libre-weather.git`
     - copy the example .env file and fill in the required fields. `cp
@@ -17,6 +18,12 @@
     - configure your reverse proxy to work with the compose or open the required
       ports in the docker-compose.
     - spin up the container `docker-compose up -d`
+
+## DEMO
+
+install | usage
+    --- | ---
+<img src="https://github.com/xddq/libre-weather/blob/main/static/install.gif" width="300"> | <img src="https://github.com/xddq/libre-weather/blob/main/static/usage.gif" width="300">
 
 # Notes
 - Releases use [semantic versioning](https://semver.org/)
