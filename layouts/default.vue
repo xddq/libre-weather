@@ -4,9 +4,9 @@
         <div
             class="flex flex-col justify-center items-center max-w-5xl mx-auto"
         >
-            <BaseHeader />
+            <base-header />
             <Nuxt />
-            <BaseFooter />
+            <base-footer />
             <!--
 https://nuxtjs.org/docs/features/nuxt-components/#the-client-only-component -->
             <client-only>
@@ -42,8 +42,8 @@ https://nuxtjs.org/docs/features/nuxt-components/#the-client-only-component -->
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import BaseHeader from "@/components/BaseHeader.vue";
-import BaseFooter from "@/components/BaseFooter.vue";
+import BaseHeader from "@/components/base/Header.vue";
+import BaseFooter from "@/components/base/Footer.vue";
 import LoadingSpinner from "~/components/LoadingSpinner.vue";
 
 @Component({

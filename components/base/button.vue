@@ -1,4 +1,10 @@
 <template>
+    <!--
+    @author Pierre Dahmani
+    @created 01.09.2021
+    @file Every button in this app is using this component to keep a clean
+style.
+-->
     <div>
         <div
             class="

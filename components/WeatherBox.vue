@@ -47,11 +47,7 @@
                             h-2/3
                         "
                     >
-                        <img
-                            :src="icon"
-                            alt="`picture of ${description}`"
-                            class=""
-                        />
+                        <img :src="icon" alt="description" />
                     </div>
                     <div
                         class="
@@ -81,8 +77,12 @@
                 >
                     <div class="row flex w-full justify-center items-center">
                         <Thermometer class="text-white fill-current mr-2" />
-                        <div class="text-center">
-                            {{ temperature }} {{ temperatureUnit }}
+                        <div class="text-center mr-4">
+                            {{ temperature }}{{ temperatureUnit }}
+                        </div>
+                        <div class="flex-col flex justify-center items-center">
+                            <div class="text-xs text-gray-200">feels like</div>
+                            <div>{{ feelsLike }}{{ temperatureUnit }}</div>
                         </div>
                     </div>
                     <div class="row flex w-full justify-center items-center">
@@ -126,7 +126,8 @@ import Umbrella from "~/components/icon/Umbrella.vue";
 import Wind from "~/components/icon/Wind.vue";
 import Thermometer from "~/components/icon/Thermometer.vue";
 // type and interface imports
-import { WeatherResponse } from "~/types/weather";
+import { Current } from "~/types/weather";
+import { WeatherBoxType } from "~/types/weather-non-api";
 
 @Component({
     name: "WeatherBox",
@@ -149,34 +150,44 @@ export default class WeatherBox extends Vue {
      * @description All required weather data which is used to display the
      * informations.
      */
-    @Prop() weatherData!: WeatherResponse | null;
-    /**
-     * @description Flag that determines whether the "hourly" and "weekly"
-     * buttons will be shown. Should also be shown in the initial/main weather
-     * box.
-     */
-    @Prop({ default: true }) mainCard!: boolean;
+    // MAYBE(pierre): make this a dependent type based on the given value? I
+    // think typescript can do this, no?
+
+    // NOTE(pierre): -For now decide what to display based on given type prop.
+    // - Current is used for the main and the hourly weather box! Daily for the
+    // daily.
+    @Prop() weatherData!: Current | null;
+    @Prop({ default: WeatherBoxType.Main }) type!: WeatherBoxType;
 
     get weatherDataNotNull() {
         return this.weatherData !== null;
     }
 
+    // The icons that are loaded by this function are inside ~/static/here.png
     get icon() {
         if (this.weatherData === null) {
             return "";
         }
-        return `${this.weatherData.current.weather[0].icon}.png`;
+        if (
+            this.type === WeatherBoxType.Main ||
+            this.type === WeatherBoxType.Hourly
+        ) {
+            return `${this.weatherData?.weather[0]?.icon}.png`;
+        }
+        // default that can not yet be reached. (can be reached once we add the
+        // "daily" stuff).
+        return "";
     }
 
     get description() {
-        return this.weatherData?.current?.weather[0].description ?? "";
+        return this.weatherData?.weather[0]?.description ?? "";
     }
 
     get date() {
         if (this.weatherData === null) {
             return "";
         }
-        const currentDate = new Date(this.weatherData.current.dt * 1000);
+        const currentDate = new Date(this.weatherData.dt * 1000);
         return currentDate.toLocaleDateString("de-DE");
     }
 
@@ -184,7 +195,7 @@ export default class WeatherBox extends Vue {
         if (this.weatherData === null) {
             return "";
         }
-        const currentDate = new Date(this.weatherData.current.dt * 1000);
+        const currentDate = new Date(this.weatherData?.dt * 1000);
         // TODO(pierre): maybe show am/pm with settings later.
         return currentDate.toLocaleTimeString("de-DE", {
             hour: "2-digit",
@@ -197,12 +208,12 @@ export default class WeatherBox extends Vue {
     }
 
     get temperature() {
-        const temperatue = this.weatherData?.current.feels_like;
-        if (temperatue === undefined) {
-            return "";
-        }
         // only allow XX.Y displayed for degree/fahrenheit
-        return temperatue.toFixed(1);
+        return this.weatherData?.temp?.toFixed(1) ?? "";
+    }
+
+    get feelsLike() {
+        return this.weatherData?.feels_like?.toFixed(1) ?? "";
     }
 
     get temperatureUnit() {
@@ -212,7 +223,7 @@ export default class WeatherBox extends Vue {
     get windSpeed() {
         // default is speed in m/s.
         // src: https://openweathermap.org/api/hourly-forecast
-        const speed = this.weatherData?.current.wind_speed;
+        const speed = this.weatherData?.wind_speed;
         if (speed === undefined) {
             return "";
         }
@@ -225,16 +236,18 @@ export default class WeatherBox extends Vue {
     }
 
     get riskOfRain() {
-        const riskOfRain = this.weatherData?.hourly[0]?.pop;
+        const riskOfRain = this.weatherData?.pop;
         if (riskOfRain === undefined) {
             return "";
         }
-        // risk of rain will be given in 0.XX from api. transform to XX%
-        return riskOfRain * 100;
+        // risk of rain will be given in 0.XX from api. transform to XX%. Using
+        // toFixed since floating point arithmetic would otherwise do it's
+        // things :P
+        return (riskOfRain * 100).toFixed(0);
     }
 
     get pressure() {
-        return this.weatherData?.current.pressure ?? "";
+        return this.weatherData?.pressure ?? "";
     }
 
     get pressureUnit() {
