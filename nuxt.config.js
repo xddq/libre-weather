@@ -99,7 +99,7 @@ export default {
             {
                 hid: "og:image",
                 name: "og:image",
-                content: process.env.META_IMAGE,
+                content: process.env.META_IMAGE ?? "https://github.com/xddq/libre-weather/blob/main/static/metaImage.jpg",
             },
 
             { name: "format-detection", content: "telephone=no" },
