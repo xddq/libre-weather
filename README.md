@@ -29,7 +29,7 @@ install | usage
 - Releases use [semantic versioning](https://semver.org/)
 - Any contribution is highly appreciated. If you want to get something done,
   just hit me up at git@pierrefhapp.dev for now. I did prepare a small list of
-possible tasks inside the "open-ideas-tasks" file.
+possible tasks inside the [open-ideas-tasks](https://github.com/xddq/libre-weather/blob/main/open-ideas-tasks) file.
 
 # Technologies
 - frontend framework: nuxt, vue
