@@ -140,12 +140,12 @@ export default class LandingPage extends Vue {
         this.displayLoading = true;
         const showLoading = new Promise((resolve) =>
             setTimeout(() => {
-                this.displayLoading = false;
                 return resolve;
             }, 750)
         );
-        // display loading spinner for 750ms while fetching the query.
+        // display loading spinner for at least 750ms while fetching the query.
         const result = await Promise.all([showLoading, this.fetchApi(params)]);
+        this.displayLoading = false;
         // displa the enter location widget depending on the success state
         // of our fetchApi call.
         this.enterLocation = result[1];
