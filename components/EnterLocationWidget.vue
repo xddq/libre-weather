@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="px-2">
         <div
             v-show="enterLocation"
             class="
@@ -9,17 +9,22 @@
                 justify-center
                 w-full
                 mt-4
-                space-x-2 space-y-4
+                px-2
+                py-4
+                space-y-4
+                bg-blue-500
+                rounded-2xl
             "
         >
             <input
                 v-model="city"
                 class="
                     text-center
-                    border border-solid
-                    w-8/12
-                    border-grey-300
+                    w-10/12
+                    text-white
+                    placeholder-white
                     rounded-xl
+                    bg-blue-300
                 "
                 type="text"
                 placeholder="enter city here"
@@ -28,82 +33,98 @@
                 v-model="countryCode"
                 class="
                     text-center
-                    border border-solid
-                    bg-white
-                    w-8/12
+                    w-10/12
+                    text-white
+                    placeholder-white
                     rounded-xl
+                    bg-blue-300
                 "
                 type="text"
                 placeholder="enter country code here"
             />
+            <!-- TODO(pierre): make this a component with v-model binding of relevant -->
+            <!-- attributes and reuse. -->
             <div
-                class="
-                    conditional-input
-                    flex flex-col
-                    justify-center
-                    items-center
-                "
+                class="checkbox-input flex flex-col justify-center items-center"
             >
-                <div>Do you want to use your own openweatherdata api key?</div>
-                <input
-                    v-model="useOwnApiKey"
-                    class="
-                        text-center
-                        border border-solid
-                        w-8/12
-                        border-grey-300
-                        rounded-xl
-                    "
-                    type="checkbox"
-                />
+                <div class="flex items-center justify-center">
+                    <input
+                        v-model="useOwnApiKey"
+                        class="
+                            mx-2
+                            text-center
+                            border border-solid border-grey-300
+                            rounded-xl
+                        "
+                        type="checkbox"
+                    />
+                    <div>
+                        Do you want to use your own openweatherdata api key?
+                    </div>
+                </div>
                 <input
                     v-if="useOwnApiKey"
                     v-model="usersOwnApiKey"
                     class="
-                        text-center
-                        border border-solid
-                        w-8/12
-                        border-grey-300
+                        mt-2
+                        text-center text-white
+                        placeholder-white
                         rounded-xl
+                        bg-blue-300
                     "
                     type="text"
                     placeholder="enter your api key here"
                 />
             </div>
+            <!-- TODO(pierre): make this a component with v-model binding of relevant -->
+            <!-- attributes and reuse. -->
             <div
-                class="
-                    conditional-input
-                    flex flex-col
-                    justify-center
-                    items-center
-                "
+                class="checkbox-input flex flex-col justify-center items-center"
             >
-                <div>Is your location in the united states?</div>
-                <input
-                    v-model="searchInUS"
-                    class="
-                        text-center
-                        border border-solid
-                        w-8/12
-                        border-grey-300
-                        rounded-xl
-                    "
-                    type="checkbox"
-                />
+                <div class="flex items-center justify-center">
+                    <input
+                        v-model="searchInUS"
+                        class="
+                            mx-2
+                            text-center
+                            border border-solid border-grey-300
+                            rounded-xl
+                        "
+                        type="checkbox"
+                    />
+                    <div>Is your location in the united states?</div>
+                </div>
                 <input
                     v-if="searchInUS"
                     v-model="stateCode"
                     class="
-                        text-center
-                        border border-solid
-                        w-8/12
-                        border-grey-300
+                        mt-2
+                        text-center text-white
+                        placeholder-white
                         rounded-xl
+                        bg-blue-300
                     "
                     type="text"
-                    placeholder="enter state code here"
+                    placeholder="enter your state code here"
                 />
             </div>
+            <!-- <div -->
+            <!--     class="checkbox-input flex flex-col justify-center items-center" -->
+            <!-- > -->
+            <!--     <div class="flex items-center justify-center"> -->
+            <!--         <input -->
+            <!--             v-model="useImperialSystem" -->
+            <!--             class=" -->
+            <!--                 mx-2 -->
+            <!--                 text-center -->
+            <!--                 border border-solid border-grey-300 -->
+            <!--                 rounded-xl -->
+            <!--             " -->
+            <!--             type="checkbox" -->
+            <!--         /> -->
+            <!--         <div>Do you want to use the imperial system?</div> -->
+            <!--     </div> -->
+            <!-- </div> -->
             <div class="flex justify-center items-center space-x-4">
                 <base-button
                     class="send-location-request"
@@ -150,7 +171,7 @@ export default class LocationWidget extends Vue {
     @Prop({ default: true }) enterLocation!: boolean;
     // decides whether we display the loading spinner.
     @Prop({ default: false }) displayLoading!: boolean;
-    // determines whether the we will check for weather inside the united states
+    // determines whether we will check for weather inside the united states
     searchInUS: boolean = false;
     // determines whether the user will use his own api key
     useOwnApiKey: boolean = false;
@@ -166,10 +187,14 @@ export default class LocationWidget extends Vue {
     evaluateSearch() {
         if (this.validateInput()) {
             const locationData = this.searchInUS
-                ? `${this.city},${this.stateCode},${this.countryCode}`
+                ? `${this.city},${this.countryCode},${this.stateCode}`
                 : `${this.city},${this.countryCode}`;
+
             const params = {
-                params: { q: locationData, appId: this.usersOwnApiKey },
+                params: {
+                    q: locationData,
+                    appId: this.usersOwnApiKey,
+                },
             };
             this.$emit("evaluateSearch", params);
         }

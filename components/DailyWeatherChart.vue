@@ -42,6 +42,9 @@ import { Daily } from "~/types/weather";
 import { ChartColors } from "~/types/color";
 // component imports
 import InternalDailyWeatherChart from "~/components/InternalDailyWeatherChart.vue";
+import { TemperatureUnits } from "~/types/weather-non-api";
+import { store } from "~/weather-store/store";
+import { celsiusToFahrenheit } from "~/utils/convert";
 
 @Component({
     name: "DailyWeatherChart",
@@ -57,6 +60,14 @@ export default class DailyWeatherChart extends Vue {
     displayChart: boolean = false;
     get haveWeatherData() {
         return this.weatherData !== null;
+    }
+
+    sharedState = store.state;
+    get useImperialSystem() {
+        // closes chart when we change the unit system. Do this since opening
+        // and closing is required to render the chart with correct legend!
+        this.displayChart = false;
+        return this.sharedState.useImperialSystem;
     }
 
     // images that will be passed into the weather chart. used for displaying
@@ -78,8 +89,14 @@ export default class DailyWeatherChart extends Vue {
         this.images = [];
         // iterates through the data once, creating relevant data sets.
         dailyWeather.slice(0, 7).forEach((dataPoint) => {
-            minTemperatures.push(dataPoint.temp.min);
-            maxTemperatures.push(dataPoint.temp.max);
+            const min = this.useImperialSystem
+                ? celsiusToFahrenheit(dataPoint.temp.min)
+                : dataPoint.temp.min;
+            const max = this.useImperialSystem
+                ? celsiusToFahrenheit(dataPoint.temp.max)
+                : dataPoint.temp.max;
+            minTemperatures.push(min);
+            maxTemperatures.push(max);
             days.push(
                 new Date(dataPoint.dt * 1000).toLocaleDateString("de-DE", {
                     day: "2-digit",
@@ -153,6 +170,10 @@ export default class DailyWeatherChart extends Vue {
                             display: true,
                             labelString: this.ensureString(
                                 this.$t("yAxesLabel")
+                            ).concat(
+                                store.getUseImperialSystem()
+                                    ? TemperatureUnits.Imperial
+                                    : TemperatureUnits.Metric
                             ),
                             padding: 2,
                         },
@@ -180,7 +201,7 @@ export default class DailyWeatherChart extends Vue {
 {
   "en": {
     "dailyData": "daily weather data",
-    "yAxesLabel": "temperature in °C",
+    "yAxesLabel": "temperature in",
     "xAxesLabel": "date in DD.MM",
     "minTemperatures": "lowest temperature",
     "maxTemperatures": "highest temperature"
