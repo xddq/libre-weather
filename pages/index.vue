@@ -139,10 +139,7 @@ export default class LandingPage extends Vue {
         // display loading spinner for user experience for 750ms.
         this.displayLoading = true;
         const showLoading = new Promise((resolve) =>
-            setTimeout(() => {
-                this.displayLoading = false;
-                return resolve;
-            }, 750)
+            setTimeout(() => resolve(true), 750)
         );
         // display loading spinner for at least 750ms while fetching the query.
         const result = await Promise.all([showLoading, this.fetchApi(params)]);
