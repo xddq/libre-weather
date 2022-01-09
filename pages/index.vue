@@ -140,6 +140,7 @@ export default class LandingPage extends Vue {
         this.displayLoading = true;
         const showLoading = new Promise((resolve) =>
             setTimeout(() => {
+                this.displayLoading = false;
                 return resolve;
             }, 750)
         );
