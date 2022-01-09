@@ -1,10 +1,31 @@
 <template>
     <div class="flex flex-col w-full justify-center items-center">
-        <EnterLocationWidget
-            :enter-location="enterLocation"
-            :display-loading="displayLoading"
-            @evaluateSearch="evaluateSearch"
-        />
+        <div class="flex">
+            <EnterLocationWidget
+                :enter-location="enterLocation"
+                :display-loading="displayLoading"
+                @evaluateSearch="evaluateSearch"
+            />
+        </div>
+        <!-- MAYBE(pierre): make this a base radio button component. -->
+        <div class="pick-unit text-white">
+            <!-- use vbind value to return boolean values. -->
+            <!-- src: https://stackoverflow.com/questions/45187048/vue-binding-radio-to-boolean -->
+            <input
+                id="metric"
+                v-model="useImperialSystem"
+                type="radio"
+                :value="false"
+            />
+            <label for="metric">Metric</label>
+            <input
+                id="imperial"
+                v-model="useImperialSystem"
+                type="radio"
+                :value="true"
+            />
+            <label for="imperial">Imperial</label>
+        </div>
         <weather-box
             class="px-2 mt-2"
             :city="city"
@@ -16,11 +37,11 @@
         ></hourly-weather-chart>
         <!-- MAYBE(pierre): does this lazy loading/dynamic importing work? Measure it. -->
         <!-- src: https://nuxtjs.org/docs/directory-structure/components/ -->
-        <lazy-daily-weather-chart
+        <daily-weather-chart
             class="mt-2"
             :weather-data="dailyWeather"
-        ></lazy-daily-weather-chart>
-        <lazy-weather-boxes
+        ></daily-weather-chart>
+        <weather-boxes
             class="px-2 mt-2"
             :hourly-weather-data="hourlyWeather"
             :city="city"
@@ -34,7 +55,9 @@
 import { TYPE, POSITION } from "vue-toastification";
 // function imports
 import { Component, Vue } from "nuxt-property-decorator";
+import { store } from "~/weather-store/store";
 // component imports
+import BaseButton from "~/components/base/button.vue";
 import WeatherBoxes from "~/components/WeatherBoxes.vue";
 import WeatherBox from "~/components/WeatherBox.vue";
 import HourlyWeatherChart from "~/components/HourlyWeatherChart.vue";
@@ -52,6 +75,7 @@ import { WeatherBoxCount } from "~/types/weather-non-api";
         HourlyWeatherChart,
         DailyWeatherChart,
         EnterLocationWidget,
+        BaseButton,
     },
 })
 export default class LandingPage extends Vue {
@@ -64,15 +88,14 @@ export default class LandingPage extends Vue {
     hourly: boolean = false;
     // determines whether the daily data will be displayed
     daily: boolean = false;
+    sharedState = store.state;
 
-    toggleHourly() {
-        this.daily = false;
-        this.hourly = !this.hourly;
+    get useImperialSystem(): boolean {
+        return this.sharedState.useImperialSystem;
     }
 
-    toggleDaily() {
-        this.hourly = false;
-        this.daily = !this.daily;
+    set useImperialSystem(newVal) {
+        store.setUseImperialSystem(newVal);
     }
 
     get city() {

@@ -121,13 +121,23 @@
 <script lang="ts">
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { store } from "~/weather-store/store";
+import {
+    celsiusToFahrenheit,
+    kilometerPerHourToMilesPerHour,
+    meterPerSecondToKilometerPerHour,
+} from "~/utils/convert";
 // component imports
 import Umbrella from "~/components/icon/Umbrella.vue";
 import Wind from "~/components/icon/Wind.vue";
 import Thermometer from "~/components/icon/Thermometer.vue";
 // type and interface imports
 import { Current } from "~/types/weather";
-import { WeatherBoxType } from "~/types/weather-non-api";
+import {
+    TemperatureUnits,
+    WeatherBoxType,
+    WindUnits,
+} from "~/types/weather-non-api";
 
 @Component({
     name: "WeatherBox",
@@ -154,6 +164,12 @@ export default class WeatherBox extends Vue {
     // gets city seperately since it is not part of the api data we receive.
     @Prop() city!: String | null;
     @Prop({ default: WeatherBoxType.Main }) type!: WeatherBoxType;
+
+    // have to import state like this to make it reactive on all attributes.
+    sharedState = store.state;
+    get useImperialSystem() {
+        return this.sharedState.useImperialSystem;
+    }
 
     get weatherDataNotNull() {
         return this.weatherData !== null;
@@ -204,31 +220,50 @@ export default class WeatherBox extends Vue {
     }
 
     get temperature() {
-        // only allow XX.Y displayed for degree/fahrenheit
-        return this.weatherData?.temp?.toFixed(1) ?? "";
+        const tempInCelsius = this.weatherData?.temp;
+        if (tempInCelsius === undefined) {
+            return "";
+        }
+        if (this.useImperialSystem) {
+            return celsiusToFahrenheit(tempInCelsius).toFixed(0);
+        }
+        return tempInCelsius.toFixed(0);
     }
 
     get feelsLike() {
-        return this.weatherData?.feels_like?.toFixed(1) ?? "";
+        const tempInCelsius = this.weatherData?.feels_like;
+        if (tempInCelsius === undefined) {
+            return "";
+        }
+        if (this.useImperialSystem) {
+            return celsiusToFahrenheit(tempInCelsius).toFixed(0);
+        }
+        return tempInCelsius.toFixed(0);
     }
 
     get temperatureUnit() {
-        return "°C";
+        return this.useImperialSystem
+            ? TemperatureUnits.Imperial
+            : TemperatureUnits.Metric;
     }
 
     get windSpeed() {
-        // default is speed in m/s.
+        // speed in meter per second
         // src: https://openweathermap.org/api/hourly-forecast
         const speed = this.weatherData?.wind_speed;
         if (speed === undefined) {
             return "";
         }
-        // return speed in km/h
-        return (speed * 3.6).toString().slice(0, 3);
+        const kmh = meterPerSecondToKilometerPerHour(speed);
+        if (this.useImperialSystem) {
+            return kilometerPerHourToMilesPerHour(kmh).toFixed(0);
+        } else {
+            return kmh.toFixed(0);
+        }
     }
 
     get windUnit() {
-        return "km/h";
+        return this.useImperialSystem ? WindUnits.Imperial : WindUnits.Metric;
     }
 
     get riskOfRain() {

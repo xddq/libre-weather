@@ -5,6 +5,11 @@ import morgan from "morgan";
 import helmet from "helmet";
 import { GeolocationResponse } from "~/types/weather";
 
+// NOTE(pierre): can only work with http request since this purely
+// server side express instance. src:
+// https://d33wubrfki0l68.cloudfront.net/90d98d426b764f11073431e33034d78ca9c93c17/bd6d7/docs/2.x/plugins.jpg
+// import { store } from "~/weather-store/store";
+
 const app = express();
 // avoids cors by setting allow origin *
 app.use(cors());
@@ -62,24 +67,26 @@ app.all("/weather", async (req, res) => {
                 "Unexpected api response. Resulting data is not an array."
             );
         }
-        // picks first result as best match
-        // TODO(pierre): get units from settins.
+
+        if (!(typeof req.query.q === "string")) {
+            throw new TypeError(
+                `Unexpected query type for q. Should be string but was: ${typeof req
+                    .query.q}`
+            );
+        }
+
+        // NOTE(pierre): currently picks first result as best match
         const weatherQueryParams = {
             appId: req.query.appId,
             lat: geoData[0].lat,
             lon: geoData[0].lon,
+            // always query metric data and convert them in frontend depending
+            // on settings.
             units: "metric",
         };
         const weatherResult = await axios.get(process.env.API_ONE_CALL_URL, {
             params: weatherQueryParams,
         });
-
-        if (!(typeof req.query.q === "string")) {
-            throw new TypeError(
-                `Unexpected query type. Should be string but was: ${typeof req
-                    .query.q}`
-            );
-        }
 
         // appends the given city, state, and country to the api response.
         // src: https://openweathermap.org/api/geocoding-api#direct_name
@@ -93,8 +100,8 @@ app.all("/weather", async (req, res) => {
                 break;
             case 3:
                 weatherResult.data.city = locationParams[0];
-                weatherResult.data.state = locationParams[1];
-                weatherResult.data.country = locationParams[2];
+                weatherResult.data.country = locationParams[1];
+                weatherResult.data.state = locationParams[2];
                 break;
             default:
                 throw new Error(
@@ -104,7 +111,8 @@ app.all("/weather", async (req, res) => {
 
         return res.status(200).send(weatherResult.data);
     } catch (e) {
-        return res.status(500).send("Proxying requests did throw an error.");
+        console.log(e);
+        return res.status(500).send(e);
     }
 });
 

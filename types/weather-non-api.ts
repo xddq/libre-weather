@@ -24,3 +24,18 @@ export enum WeatherBoxCount {
     // https://openweathermap.org/api/one-call-api
     Daily = 7,
 }
+
+export enum WeatherUnits {
+    Imperial = "imperial",
+    Metric = "metric",
+}
+
+export enum TemperatureUnits {
+    Imperial = "°F",
+    Metric = "°C",
+}
+
+export enum WindUnits {
+    Imperial = "mph",
+    Metric = "km/h",
+}

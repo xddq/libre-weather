@@ -37,12 +37,15 @@ by getting the chartData and options inside the internal component.
 <script lang="ts">
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { store } from "~/weather-store/store";
+import { celsiusToFahrenheit } from "~/utils/convert";
 // type and interface imports
 import { Current } from "~/types/weather";
 import { ChartColors } from "~/types/color";
 // component imports
 import WeatherBox from "~/components/WeatherBox.vue";
 import InternalHourlyWeatherChart from "~/components/InternalHourlyWeatherChart.vue";
+import { TemperatureUnits } from "~/types/weather-non-api";
 
 @Component({
     name: "HourlyWeatherChart",
@@ -55,6 +58,15 @@ export default class HourlyWeatherChart extends Vue {
      */
     @Prop({ type: Array, default: [] }) weatherData!: Current[] | null;
     displayChart: boolean = true;
+
+    sharedState = store.state;
+
+    get useImperialSystem() {
+        // closes chart when we change the unit system. Do this since opening
+        // and closing is required to render the chart with correct legend!
+        this.displayChart = false;
+        return this.sharedState.useImperialSystem;
+    }
 
     get haveWeatherData() {
         return this.weatherData !== null;
@@ -78,7 +90,10 @@ export default class HourlyWeatherChart extends Vue {
         this.images = [];
         // iterates through the data once, creating relevant data sets.
         hourlyWeather.slice(0, 10).forEach((dataPoint) => {
-            temperatures.push(dataPoint.temp);
+            const temp = this.useImperialSystem
+                ? celsiusToFahrenheit(dataPoint.temp)
+                : dataPoint.temp;
+            temperatures.push(temp);
             // MAYBE(pierre): get 12 hour format (Xam, Ypm, etc..) depending on locale.
             hours.push(new Date(dataPoint.dt * 1000).getHours());
             this.images.push(`${dataPoint.weather[0].icon}-50x50.png`);
@@ -105,7 +120,6 @@ export default class HourlyWeatherChart extends Vue {
 
     get chartOptions(): Chart.ChartOptions {
         return {
-            // adds padding in px I guess?
             // src: https://www.chartjs.org/docs/3.5.1/general/padding.html
             layout: {
                 padding: {
@@ -129,6 +143,10 @@ export default class HourlyWeatherChart extends Vue {
                             display: true,
                             labelString: this.ensureString(
                                 this.$t("yAxesLabel")
+                            ).concat(
+                                this.useImperialSystem
+                                    ? TemperatureUnits.Imperial
+                                    : TemperatureUnits.Metric
                             ),
                             padding: 2,
                         },
@@ -171,7 +189,7 @@ export default class HourlyWeatherChart extends Vue {
   "en": {
     "hourlyData": "hourly weather data",
     "temperature": "temperature",
-    "yAxesLabel": "temperature in °C",
+    "yAxesLabel": "temperature in",
     "xAxesLabel": "current hour"
   }
 }
