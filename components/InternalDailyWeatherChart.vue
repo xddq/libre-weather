@@ -6,7 +6,7 @@
  * vue-chart.js docu we are not allowed to use any <template> stuff here.
  */
 // function imports
-import { Component, Prop } from "nuxt-property-decorator";
+import { Component, Prop, Watch } from "nuxt-property-decorator";
 import { Mixins } from "vue-property-decorator";
 import { Line, mixins } from "vue-chartjs";
 // component imports
@@ -34,6 +34,20 @@ export default class HourlyWeatherChart extends Mixins(
      * current weather situation.
      */
     @Prop({ type: Array, default: [] }) chartTickImages!: string[];
+
+    /**
+     * @description Enforces the chart to update itself whenever the chart
+     * options change. In our case this is the legend of the chart which changes
+     * from metric to imperial and vice versa.
+     * src: https://github.com/apertureless/vue-chartjs/issues/195
+     */
+    @Watch("chartOptions", { immediate: true, deep: true })
+    onPersonChanged1() {
+        if (this.$data._chart) {
+            this.$data._chart.options = this.chartOptions;
+            this.$data._chart.update();
+        }
+    }
 
     mounted() {
         // NOTE(pierre): chartjs 2.X seems not to have decent types for plugins

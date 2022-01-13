@@ -108,23 +108,6 @@
                     placeholder="enter your state code here"
                 />
             </div>
-            <!-- <div -->
-            <!--     class="checkbox-input flex flex-col justify-center items-center" -->
-            <!-- > -->
-            <!--     <div class="flex items-center justify-center"> -->
-            <!--         <input -->
-            <!--             v-model="useImperialSystem" -->
-            <!--             class=" -->
-            <!--                 mx-2 -->
-            <!--                 text-center -->
-            <!--                 border border-solid border-grey-300 -->
-            <!--                 rounded-xl -->
-            <!--             " -->
-            <!--             type="checkbox" -->
-            <!--         /> -->
-            <!--         <div>Do you want to use the imperial system?</div> -->
-            <!--     </div> -->
-            <!-- </div> -->
             <div class="flex justify-center items-center space-x-4">
                 <base-button
                     class="send-location-request"
