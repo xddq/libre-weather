@@ -60,11 +60,7 @@ export default class HourlyWeatherChart extends Vue {
     displayChart: boolean = true;
 
     sharedState = store.state;
-
     get useImperialSystem() {
-        // closes chart when we change the unit system. Do this since opening
-        // and closing is required to render the chart with correct legend!
-        this.displayChart = false;
         return this.sharedState.useImperialSystem;
     }
 
