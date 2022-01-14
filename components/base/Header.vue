@@ -5,7 +5,9 @@
     @file: Default header for every page
 -->
     <div class="flex justify-center items-center w-full mt-8">
-        <h1 class="font-semibold text-xl">Libre Weather</h1>
+        <nuxt-link to="/">
+            <h1 class="font-semibold text-xl">Libre Weather</h1>
+        </nuxt-link>
     </div>
 </template>
 
