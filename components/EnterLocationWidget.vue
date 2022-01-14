@@ -145,9 +145,11 @@
 <script lang="ts">
 // function imports
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { getCookieValue, setCookie } from "~/utils/cookies";
 // component imports
 // type and interface imports
 import { TYPE, POSITION } from "vue-toastification";
+import { LastSearchCookieNames } from "~/types/cookie";
 
 @Component({ name: "EnterLocationWidget", components: {} })
 export default class LocationWidget extends Vue {
@@ -179,8 +181,46 @@ export default class LocationWidget extends Vue {
                     appId: this.usersOwnApiKey,
                 },
             };
+            // stores last searched location inside cookies.
+            this.storeLastSearch();
             this.$emit("evaluateSearch", params);
         }
+    }
+
+    /**
+     * @description Stores the data was was used for the last search inside
+     * cookies.
+     */
+    storeLastSearch() {
+        setCookie(LastSearchCookieNames.city, this.city);
+        setCookie(LastSearchCookieNames.countryCode, this.countryCode);
+        setCookie(LastSearchCookieNames.stateCode, this.stateCode);
+        setCookie(LastSearchCookieNames.usersOwnApiKey, this.usersOwnApiKey);
+    }
+
+    /**
+     * @description Loads default values (the last search) into the widget.
+     */
+    loadLastSearch() {
+        this.city = getCookieValue(LastSearchCookieNames.city) ?? "";
+        this.countryCode =
+            getCookieValue(LastSearchCookieNames.countryCode) ?? "";
+        const lastOwnApiKey = getCookieValue(
+            LastSearchCookieNames.usersOwnApiKey
+        );
+        if (lastOwnApiKey !== null) {
+            this.useOwnApiKey = true;
+            this.usersOwnApiKey = lastOwnApiKey;
+        }
+        const lastStateCode = getCookieValue(LastSearchCookieNames.stateCode);
+        if (lastStateCode !== null) {
+            this.searchInUS = true;
+            this.stateCode = lastStateCode;
+        }
+    }
+
+    mounted() {
+        this.loadLastSearch();
     }
 
     /**
