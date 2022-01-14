@@ -6,36 +6,18 @@
         >
             <base-header />
             <Nuxt />
-            <base-footer />
-            <!--
-https://nuxtjs.org/docs/features/nuxt-components/#the-client-only-component -->
-            <client-only>
-                <!-- this component will only be rendered on client-side -->
-                <CookieConsent />
-                <!-- loading indicator, rendered on server-side -->
-                <template #placeholder>
-                    <!-- Modal -->
-                    <div
-                        class="
-                            modal-overlay
-                            fixed
-                            top-0
-                            bottom-0
-                            left-0
-                            right-0
-                            flex
-                            justify-center
-                            items-center
-                            bg-gray-400
-                            opacity-50
-                        "
-                    >
-                        <LoadingSpinner
-                            class="modal-content fixed z-1 h-auto"
-                        />
-                    </div>
-                </template>
-            </client-only>
+            <base-footer
+                class="
+                    border-t-2 border-white
+                    flex flex-col
+                    justify-center
+                    items-center
+                    w-full
+                    text-white
+                    p-2
+                    mt-8
+                "
+            />
         </div>
     </div>
 </template>
