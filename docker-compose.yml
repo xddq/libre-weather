@@ -4,8 +4,19 @@ version: "3.8"
 # network name for your reverse proxy.
 services:
     libre-weather:
-        build:
-            context: .
+        # builds latest tag if no CI_COMMIT_TAG given.
+        image: xddq/libre-weather:${CI_COMMIT_TAG:-latest}
+        # build:
+        #     context: .
+        environment:
+            # these should/have to be set.
+            - API_KEY=${API_KEY:-"no api key given"}
+            - BASE_URL=${BASE_URL:-"no base url given"}
+            - GDPR_URL=${GDPR_URL:-"no gdpr url given"}
+            - IMPRINT_URL=${IMPRINT_URL:-"no imprint url given"}
+            # these can stay default.
+            - HOST_ADDRESS=${HOST_ADDRESS:-0.0.0.0}
+            - HOST_PORT=${HOST_PORT:-3000}
         restart: unless-stopped
         container_name: weather-server
         networks:
