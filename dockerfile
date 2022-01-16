@@ -9,9 +9,8 @@ ENV TZ=Europe/Berlin
 WORKDIR /srv/node
 # copy app source over
 COPY . .
-# installs packages and builds the app
-RUN npm ci && npm run build
+# adds bash as default shell, installs packages and builds the app
+RUN apk add bash && npm ci && npm run build
 # starts prod server
-CMD [ "npm", "run", "start" ]
 # CMD ["tail", "-f", "/dev/null"]
-
+CMD [ "/bin/bash", "-c", "./start.sh" ]

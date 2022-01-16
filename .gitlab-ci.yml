@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+# Author: Pierre Dahmani
+# Created: 16.01.2022
+#
+# Description: Pipeline to auto build and push the latest tag to the docker hub
+# repo. Repo src: https://hub.docker.com/repository/docker/xddq/test-deploy
+# Initial idea from github user 'spinside' src: https://github.com/xddq/libre-weather/issues/1
+
+
+# image that will be run for each job/step/stage.
+# enables usage of docker-compose inside ci.
+image: tmaier/docker-compose:20.10
+
+# declares all stages of this pipeline.
+stages:
+  - build
+  - deploy
+
+
+# will be run before any job that does not have before_script specified.
+before_script:
+    # logs into the docker hub repo.
+    # https://stackoverflow.com/questions/34198392/docker-official-registry-docker-hub-url
+    - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+
+# will be run after any job that does not have after_script specified.
+after_script:
+    # logs out of docker hub repo.
+    - docker logout
+
+build_image_and_push_it_to_docker_hub:
+  stage: build
+
+  # Ensures pipeline will be run on the secondremote server. This semantic was
+  # given by me to the gitlab-runners on the self managed gitlab instance.
+  tags:
+      - secondremote
+
+  rules:
+    # runs job if we have a commit tag and we are on main branch.
+    # https://stackoverflow.com/questions/63864070/how-to-combine-rules-in-gitlab-ci-cd
+    - if: $CI_COMMIT_TAG && 'CI_COMMIT_BRANCH == "main"'
+
+  script:
+    # builds image locally. gives it the name "libre-weather" with tag "latest"
+    # based on the dockerfile in the root dir.
+    - docker image build -t libre-weather:latest .
+    # creates tag and pushes the image we have just built. Prepends link to official
+    # docker hub. This link is required to make sure docker knows to which
+    # registry we are pushing.
+    - docker image tag libre-weather:latest "docker.io/xddq/libre-weather:$CI_COMMIT_TAG"
+    - docker push "docker.io/xddq/libre-weather:$CI_COMMIT_TAG"
+    # tags and pushes the image to the 'latest' tag in remote repo.
+    - docker image tag libre-weather:latest "docker.io/xddq/libre-weather:latest"
+    - docker push "docker.io/xddq/libre-weather:latest"
+
+deploy:
+  stage: deploy
+
+  # Ensures pipeline will be run on the secondremote server. This semantic was
+  # given by me to the gitlab-runners on the self managed gitlab instance.
+  tags:
+      - secondremote
+
+  rules:
+    # runs job if we have a commit tag and we are on main branch.
+    # https://stackoverflow.com/questions/63864070/how-to-combine-rules-in-gitlab-ci-cd
+    - if: $CI_COMMIT_TAG && 'CI_COMMIT_BRANCH == "main"'
+
+  script:
+    # sets variables for the docker-compose.yml file.
+    - echo "API_KEY=$API_KEY" >> .env
+    - echo "BASE_URL=$BASE_URL" >> .env
+    - echo "GDPR_URL=$GDPR_URL" >> .env
+    - echo "IMPRINT_URL=$IMPRINT_URL" >> .env
+    - echo "HOST_ADDRESS=$HOST_ADDRESS" >> .env
+    - echo "HOST_PORT=$HOST_PORT" >> .env
+    # starts webserver
+    - docker-compose up -d --force-recreate
+
