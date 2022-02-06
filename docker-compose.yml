@@ -6,6 +6,7 @@ services:
     libre-weather:
         # builds latest tag if no CI_COMMIT_TAG given.
         image: xddq/libre-weather:${CI_COMMIT_TAG:-latest}
+        restart: always
         # build:
         #     context: .
         environment:
