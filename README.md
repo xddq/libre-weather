@@ -45,6 +45,11 @@ possible tasks inside the [open-ideas-tasks](https://github.com/xddq/libre-weath
 - styling: tailwindcss
 - build/deploy: docker / docker-compose file
 
+#### LICENSE HEADER
+Libre Weather. A libre weather app used to display a weather forecast.
+
+Copyright (C) 2022 Pierre Dahmani 
+
 # Licenses
 
 - The weather data and the weather icons are provided by OpenWeatherMap, under the Creative Commons licence.
