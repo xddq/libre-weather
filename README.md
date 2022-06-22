@@ -51,6 +51,17 @@
 -   styling: tailwindcss
 -   build/deploy: docker / docker-compose file
 
+#### LICENSE HEADER
+Libre Weather. A libre weather app used to display a weather forecast.
+
+Copyright (C) 2022 Pierre Dahmani 
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
+
 # Licenses
 
 -   The weather data and the weather icons are provided by OpenWeatherMap, under the Creative Commons licence.
